@@ -44,8 +44,47 @@ public class GerirMedicamentos {
             }
         }
     }
+    
+    public static void menu_PeriodoToma () {
+        System.out.println("Indique o qual o tipo de periodo de toma:\n1.) x em x horas\n2.) x em x dias\n");
+    }
 
+    public static void adicionar(int idUtilizador, ArrayList<Utilizador> utilizadores)
+    {
+        String nome, descricao;
+        int quantidade;
+        Data periodo_toma;
+        
+        ArrayList<Medicamento> meds = utilizadores.get(idUtilizador).getMedicamentos();
 
+        System.out.println("Nome: ");
+        nome = (Read.String());
+
+        System.out.println("Descricao: ");
+        descricao = (Read.String());
+
+        System.out.println("Quantidade a tomar: ");
+        quantidade = (Read.Int());
+
+        menu_PeriodoToma();
+        int choice = (Read.Int());
+
+        // TIME FALTA CONVERTER //
+        switch (choice) {
+            case 1: {
+                System.out.println("Qual o intervalo de toma? ");
+                int time = Read.Int();
+                System.out.println("Sera notificado de " + time + " em " + time + " horas.\n");
+            }
+            case 2: {
+                System.out.println("Quantos dias de intervalo? ");
+                int time = Read.Int();
+                System.out.println("Sera notificado de " + time + " em " + time + " dias.\n");
+            }
+        }
+        
+        Medicamento Med = new Medicamento(meds.size(), nome, descricao, periodo_toma, quantidade);
+    }
 
     public static void remover(int idUtilizador, ArrayList<Utilizador> utilizadores) {
         
