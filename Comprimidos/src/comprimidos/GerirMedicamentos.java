@@ -74,11 +74,13 @@ public class GerirMedicamentos {
                 System.out.println("Qual o intervalo de toma? ");
                 int time = Read.Int();
                 System.out.println("Sera notificado de " + time + " em " + time + " horas.\n");
+                break;
             }
             case 2: {
                 System.out.println("Quantos dias de intervalo? ");
                 int time = Read.Int();
                 System.out.println("Sera notificado de " + time + " em " + time + " dias.\n");
+                break;
             }
         }
         
