@@ -50,5 +50,67 @@ public class GerirMedicamentos {
     public static void remover(int idUtilizador, ArrayList<Utilizador> utilizadores) {
         
     }
+    
+    public static void modificar (int idUtilizador, ArrayList <Utilizador> utilizadores){
+
+
+    if ( findDroga() == null)
+    {
+        
+    }
+
+
+    int choice = 0;
+        boolean ProgramOn = true;
+
+        while (ProgramOn) {
+
+            menu_Modificar();
+            choice = Read.Int();
+
+            switch (choice) {
+                case 1: {
+                    System.out.print("Introduza o novo nome: ");
+                    String nome = Read.String();
+                    utilizadores.get(idUtilizador).setNome(nome);
+                    System.out.println("Medicamento modificado com sucesso.");
+                    System.out.println(utilizadores.get(idUtilizador).getMedicamentos(id));
+                    System.out.println("\nEscolha outra opção...");
+                    break;
+                }
+
+                case 2: {
+                    System.out.print("Introduza a nova quantidade: ");
+                    int quanti = Read.Int();
+                    utilizadores.get(idUtilizador).setQuantidade(quanti);
+                    System.out.println("Medicamento modificado com sucesso.");
+                    System.out.println(utilizadores.get(idUtilizador).getMedicamentos(id));
+                    System.out.println("\nEscolha outra opção...");
+                    break;
+                }
+
+                case 3: {
+                    System.out.print("Introduza o novo o período de toma: ");
+                    int pt = Read.Int();
+                    utilizadores.get(idUtilizador).setPeriodo_toma(pt);
+                    System.out.println("Medicamento modificado com sucesso.");
+                    System.out.println(utilizadores.get(idUtilizador).getMedicamentos(id));
+                    System.out.println("\nEscolha outra opção...");
+                    break;
+                }
+
+                case 4: {
+                    System.out.println("\n");
+                    Ficheiro.escrever(utilizadores);
+                    return;
+                }
+
+                default: {
+                    System.out.println("Opção inválida.");
+                    break;
+                }
+            }
+        }
+    
 
 }
