@@ -69,7 +69,6 @@ public class GerirMedicamentos {
         menu_PeriodoToma();
         int choice = (Read.Int());
 
-        // TIME FALTA CONVERTER //
         switch (choice) {
             case 1: {
                 System.out.println("Qual o intervalo de toma? ");
