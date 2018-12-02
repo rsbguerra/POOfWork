@@ -45,27 +45,34 @@ public class GerirMedicamentos {
         }
     }
 
-
-
     public static void remover(int idUtilizador, ArrayList<Utilizador> utilizadores) {
-        
+
+    }
+
+    public static void menu() {
+        System.out.println(
+                "|==================================|\n"
+                + "|                                  |\n"
+                + "|               MENU               |\n"
+                + "|                                  |\n"
+                + "|==================================|\n"
+                + "|        Selecione uma opção       |\n"
+                + "|----------------------------------|\n"
+                + "|   1.) Adicionar Medicamento      |\n" // perguntar qual sera o tipo de medicamento
+                + "|   2.) Remover Medicamento        |\n"
+                + "|   3.) Modificar Medicamento      |\n"
+                + "|   4.) Consultar                  |\n"
+                + "|   5.) Voltar atrás               |\n"
+                + "|----------------------------------|\n");
     }
     
-    public static void modificar (int idUtilizador, ArrayList <Utilizador> utilizadores){
-
-
-    if ( findDroga() == null)
-    {
-        
-    }
-
-
-    int choice = 0;
+    public static void modificar(int idUtilizador, ArrayList<Utilizador> utilizadores) {
+        int choice = 0;
         boolean ProgramOn = true;
 
         while (ProgramOn) {
 
-            menu_Modificar();
+            menuModificar();
             choice = Read.Int();
 
             switch (choice) {
@@ -111,6 +118,6 @@ public class GerirMedicamentos {
                 }
             }
         }
-    
 
+    }
 }
