@@ -59,6 +59,10 @@ public class GerirMedicamentos {
             }
         }
     }
+    
+    public static void menu_PeriodoToma () {
+        System.out.println("Indique o qual o tipo de periodo de toma:\n1.) x em x horas\n2.) x em x dias\n");
+    }
 
     public static void adicionar(int idUtilizador, ArrayList<Utilizador> utilizadores) {
         System.out.print("Introduza nome do novo medicamento: ");
@@ -66,7 +70,7 @@ public class GerirMedicamentos {
 
         System.out.print("Introduza o codigo do medicamento: ");
         int codigo = Read.Int();
-
+                
         System.out.print("Medicamento e tomado de hora a hora ou de dias a dias(h/d): ");
         char op = Read.Char();
 
@@ -147,7 +151,7 @@ public class GerirMedicamentos {
     }
 
     public static void remover(int idUtilizador, ArrayList<Utilizador> utilizadores) {
-        utilizadores.get(idUtilizador).getMedicamentos().remove();
+        
     }
 
     public static void menuModificar() {

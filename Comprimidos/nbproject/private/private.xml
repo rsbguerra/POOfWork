@@ -1,13 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="8">
+        <file>
+            <url>src/comprimidos/GerirMedicamentos.java</url>
+            <bookmark id="6">
+                <name/>
+                <line>23</line>
+                <key/>
+            </bookmark>
+            <bookmark id="7">
+                <name/>
+                <line>62</line>
+                <key/>
+            </bookmark>
+            <bookmark id="8">
+                <name/>
+                <line>106</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/comprimidos/GerirUtilizadores.java</url>
+            <bookmark id="5">
+                <name/>
+                <line>6</line>
+                <key/>
+            </bookmark>
+            <bookmark id="1">
+                <name/>
+                <line>23</line>
+                <key/>
+            </bookmark>
+            <bookmark id="2">
+                <name/>
+                <line>77</line>
+                <key/>
+            </bookmark>
+            <bookmark id="3">
+                <name/>
+                <line>96</line>
+                <key/>
+            </bookmark>
+            <bookmark id="4">
+                <name/>
+                <line>117</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Raquel/Desktop/Comprimidos/src/comprimidos/Comprimido.java</file>
-            <file>file:/C:/Users/Raquel/Desktop/Comprimidos/src/comprimidos/Utilizador.java</file>
-            <file>file:/C:/Users/Raquel/Desktop/Comprimidos/src/comprimidos/GerirMedicamentos.java</file>
-            <file>file:/C:/Users/Raquel/Desktop/Comprimidos/src/comprimidos/Main.java</file>
-            <file>file:/C:/Users/Raquel/Desktop/Comprimidos/src/comprimidos/Ficheiro.java</file>
+            <file>file:/C:/Users/Raquel/Documents/GitHub/POOfWork/Comprimidos/src/comprimidos/GerirUtilizadores.java</file>
+            <file>file:/C:/Users/Raquel/Documents/GitHub/POOfWork/Comprimidos/src/comprimidos/Data.java</file>
+            <file>file:/C:/Users/Raquel/Documents/GitHub/POOfWork/Comprimidos/src/comprimidos/GerirMedicamentos.java</file>
+            <file>file:/C:/Users/Raquel/Documents/GitHub/POOfWork/Comprimidos/src/comprimidos/Main.java</file>
+            <file>file:/C:/Users/Raquel/Documents/GitHub/POOfWork/Comprimidos/src/comprimidos/Utilizador.java</file>
         </group>
     </open-files>
 </project-private>
