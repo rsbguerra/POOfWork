@@ -57,8 +57,7 @@ public class Main {
             return;
         }
     }
-    
-    // !!MUDAR ID DO CONSTRUTOR!!
+
     public static void registar() {
         ArrayList<Utilizador> utilizadores = Ficheiro.abrir();
         Utilizador NovoUtilizador = new Utilizador();

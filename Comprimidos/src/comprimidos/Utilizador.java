@@ -99,14 +99,18 @@ public class Utilizador implements Serializable {
         this.medicamentos = medicamentos;
     }
 
-    public Medicamento findDroga() {
+    public Medicamento findDroga() throws NullPointerException {
+        
+            ArrayList<Medicamento> drugs = getMedicamentos();
+            int i;
 
-        ArrayList<Medicamento> drugs = getMedicamentos();
+            if (drugs.isEmpty()) {
+                throw new NullPointerException();
+            }
 
-        int i;
-
-            for (i = 0; i < drugs.size(); i++)
+            for (i = 0; i < drugs.size(); i++) {
                 System.out.println(drugs.get(i).toString() + "\n");
+            }
 
             System.out.println("Qual o medicamento que quer modificar?(insira o seu codigo)");
 
@@ -115,7 +119,7 @@ public class Utilizador implements Serializable {
 
                 for (i = 0; i < drugs.size(); i++) {
                     if (i == id) {
-                        break;
+                        return drugs.get(i);
                     }
                 }
 
@@ -123,9 +127,7 @@ public class Utilizador implements Serializable {
                     System.out.println("Medicamento não encontrado");
                 }
             }
-
-
-    }
+        } 
 
     @Override
     public String toString() {

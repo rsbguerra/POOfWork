@@ -3,9 +3,10 @@ package comprimidos;
 import java.util.ArrayList;
 
 public class GerirUtilizadores {
+
     public static void MenuUtilizadores() {
         System.out.println(
-                  "|==================================|\n"
+                "|==================================|\n"
                 + "|                                  |\n"
                 + "|               MENU               |\n"
                 + "|                                  |\n"
@@ -14,58 +15,67 @@ public class GerirUtilizadores {
                 + "|----------------------------------|\n"
                 + "|   1.) Consultar Utilizador       |\n"
                 + "|   2.) Remover Utilizador         |\n"
-                + "|   3.) Modificar Utilizador       |\n" 
+                + "|   3.) Modificar Utilizador       |\n"
                 + "|   4.) Gerir Medicamentos         |\n"
                 + "|   5.) Voltar atrás               |\n"
                 + "|----------------------------------|\n");
     }
 
     public static void gerirUtilizadores(int index, ArrayList<Utilizador> utilizadores) {
-
         int choice;
+        
         while (true) {
             MenuUtilizadores();
             choice = Read.Int();
 
             switch (choice) {
 
-                case 1: { //CONSULTA UTILIZADOR
+                // mostra toda a informaçao do utilizador
+                case 1: {
                     System.out.println((utilizadores.get(index)).toString());
                     break;
                 }
 
-                case 2: { // REMOVE UTILIZADOR
-                    // fazer remover() retornar um int para decidir se tem de
-                    // voltar ao menu principal ou menu do utilizador
-                    System.out.println("index: " + index);
+                // remover() volta ao menu principal
+                case 2: {
                     remover(index, utilizadores);
                     Ficheiro.escrever(utilizadores);
                     return;
                 }
 
-                case 3: { // MODIFICA UTILIZADOR --> CHAMA O MÉTODO PARA MUDAR CADA VARIÁVEL DO UTILIZADOR EM QUESTÃO
+                // chama metodo modificar(), que chama
+                case 3: {
                     modificar(index, utilizadores);
                     break;
                 }
 
-                case 4: { // GERIR MEDICAMENTOS
+                /*
+                    chama metodo gerirMed(int idUtilizador, ArrayList<Utilizador> utilizadores)
+                    na classe GerirMedicamentos
+                */
+                case 4: {
                     GerirMedicamentos.gerirMed(index, utilizadores);
                     break;
                 }
-                
-                case 5: { // VOLTA PARA O MENU ANTERIOR
+
+                /* 
+                    no fim de fazer as alteraçoes necessarias ao utilizador, 
+                    alteraçoes feitas ao arraylist utilizadores sao guardadas no 
+                    ficheiro e retorna-se para o menu MenuUtilizadores() ainda nesta classe
+                 */
+                case 5: {
+                    Ficheiro.escrever(utilizadores);
                     return;
                 }
 
-                default: // CASO SEJA NENHUMA OPÇÃO DAS ACIMA CITADAS
-                    System.out.println("Opção inválida!!\nTente outra vez!!");
+                default:
+                    System.out.println("Opção inválida! Introduzir nova opção\n");
                     break;
             }
         }
     }
 
     public static void remover(int index, ArrayList<Utilizador> lista) {
-
         char op;
         System.out.print("are you sure about that?? (y/n): ");
 
@@ -81,10 +91,10 @@ public class GerirUtilizadores {
                     System.out.println("op invalida");
                     break;
             }
-        }       
+        }
     }
-
-    public static void menu_Modificar() {
+    
+    public static void menuModificar() {
         System.out.println("<><><><><><><><><><><><><><><><><><>");
         System.out.println("                                    ");
         System.out.println("   Escolha o que pretende alterar   ");
@@ -97,18 +107,27 @@ public class GerirUtilizadores {
         System.out.println("            5. Terminar             ");
         System.out.println("<><><><><><><><><><><><><><><><><><>");
     }
-
-    public static void modificar(int index, ArrayList<Utilizador> lista) //recebe a posição do utilizador na lista dos Utilizadores
+    
+    /*
+        - recebe a posição do utilizador na lista dos Utilizadores 
+          e a lista dos utilizadores
+        - chama menuModificar() para o utilizador escolher o campo a alterar
+        - no fim de cada alteraçao mostra toda a informaçao do utilizador com 
+          os dados alterados
+    */
+    public static void modificar(int index, ArrayList<Utilizador> lista) 
     {
-        int choice = 0;
-        boolean ProgramOn = true;
+        int choice;
+        
+        // removi a var ProgramOn pois o valor desta nunca e alterado
+        while (true) {
 
-        while (ProgramOn) {
-
-            menu_Modificar();
+            menuModificar();
             choice = Read.Int();
 
             switch (choice) {
+                
+                // modificar nome
                 case 1: {
                     System.out.print("Introduza o novo nome: ");
                     String nome = Read.String();
@@ -152,7 +171,13 @@ public class GerirUtilizadores {
                     break;
                 }
 
+                /* 
+                    no fim de fazer as alteraçoes necessarias ao utilizador, 
+                    alteraçoes feitas ao arraylist utilizadores sao guardadas no 
+                    ficheiro e retorna-se para o menu MenuUtilizadores() ainda nesta classe
+                 */
                 case 5: {
+
                     System.out.println("\n");
                     Ficheiro.escrever(lista);
                     return;

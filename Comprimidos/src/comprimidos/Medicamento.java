@@ -9,14 +9,25 @@ public class Medicamento implements Serializable {
     private String nome;
     private String descricao;
     private Data periodo_toma;
+    private Data primeira_toma;
     private int quantidade;
 
-    public Medicamento(int id, String nome, String descricao, Data periodo_toma, int quantidade) {
+    public Medicamento(int id, String nome, String descricao, Data periodo_toma, Data primeira_toma, int quantidade) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.periodo_toma = periodo_toma;
+        this.primeira_toma = primeira_toma;
         this.quantidade = quantidade;
+    }
+    
+    public Medicamento() {
+        this.id = -1;
+        this.nome = "";
+        this.descricao = "";
+        this.primeira_toma = new Data();
+        this.periodo_toma = new Data();
+        this.quantidade = -1;
     }
 
     public int getid() {
@@ -70,7 +81,7 @@ public class Medicamento implements Serializable {
     }
 
     public Object clone() {
-        Medicamento copia = new Medicamento(this.id, this.nome, this.descricao, this.periodo_toma, this.quantidade);
+        Medicamento copia = new Medicamento(this.id, this.nome, this.descricao, this.periodo_toma, this.primeira_toma, this.quantidade);
         return copia;
     }
 
