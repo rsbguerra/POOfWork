@@ -99,14 +99,13 @@ public class Utilizador implements Serializable {
         this.medicamentos = medicamentos;
     }
 
-    public Medicamento findDroga() throws NullPointerException {
+    public Medicamento findDroga() throws ArrayVazio{
         
             ArrayList<Medicamento> drugs = getMedicamentos();
             int i;
 
-            if (drugs.isEmpty()) {
-                throw new NullPointerException();
-            }
+            if (drugs.isEmpty()) throw new ArrayVazio("Não existem medicamentos!");
+            
 
             for (i = 0; i < drugs.size(); i++) {
                 System.out.println(drugs.get(i).toString() + "\n");
@@ -123,9 +122,8 @@ public class Utilizador implements Serializable {
                     }
                 }
 
-                if (i > drugs.size()) {
-                    System.out.println("Medicamento não encontrado");
-                }
+                if (i > drugs.size()) throw new ArrayVazio("Medicamento não encontrado");
+                
             }
         } 
 
