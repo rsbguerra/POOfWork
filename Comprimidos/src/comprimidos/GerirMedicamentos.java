@@ -43,11 +43,7 @@ public class GerirMedicamentos {
 
                 //consultar todos os medicamntos
                 case 4:
-                    try {
-                        System.out.println(utilizadores.get(idUtilizador).findDroga().toString());
-                    } catch (ArrayVazio e) {
-                        System.out.println(e.getMessage());
-                    }
+                    consultar(idUtilizador, utilizadores);
                     break;
                 /* 
                     no fim de fazer as alteraçoes necessarias aos medicamentos, 
@@ -126,9 +122,64 @@ public class GerirMedicamentos {
         }
     }
 
-    public static void remover(int idUtilizador, ArrayList<Utilizador> utilizadores) {
+    public static void consultar(int idUtilizador, ArrayList<Utilizador> utilizadores) {
+        ArrayList<Medicamento> medicamentos = utilizadores.get(idUtilizador).getMedicamentos();
+        int i;
 
-        utilizadores.get(idUtilizador).getMedicamentos().remove();
+        try {
+            if (medicamentos.isEmpty()) {
+                throw new ArrayVazio("Nao existem medicamentos!");
+            }
+
+            for (i = 0; i < medicamentos.size(); i++) {
+                System.out.println("nome: " + medicamentos.get(i).getNome()
+                        + "\ncodigo: " + medicamentos.get(i).getid() + "\n");
+            }
+
+            System.out.print("Qual o medicamento? (insira o codigo): ");
+            int id = Read.Int();
+
+            for (i = 0; i < medicamentos.size(); i++) {
+                if (id == medicamentos.get(i).getid()) {
+                    System.out.println(medicamentos.get(i).toString() + "\n");
+                }
+            }
+
+            if (i > medicamentos.size()) {
+                throw new ArrayVazio("Medicamento nao existe!");
+            }
+
+        } catch (ArrayVazio e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void remover(int idUtilizador, ArrayList<Utilizador> utilizadores) {
+        
+        ArrayList<Medicamento> medicamentos = utilizadores.get(idUtilizador).getMedicamentos();
+        int i;
+
+        try {
+            if (medicamentos.isEmpty()) 
+                throw new ArrayVazio("Nao existem medicamentos!");
+
+            for (i = 0; i < medicamentos.size(); i++) 
+                System.out.println("nome: " + medicamentos.get(i).getNome()
+                        + "\ncodigo: " + medicamentos.get(i).getid() + "\n");
+
+            System.out.print("Qual o medicamento? (insira o codigo): ");
+            int id = Read.Int();
+
+            for (i = 0; i < medicamentos.size(); i++)
+                if (id == medicamentos.get(i).getid())
+                    medicamentos.remove(i);
+            
+            if (i > medicamentos.size())
+                throw new ArrayVazio("Medicamento nao existe!");
+            
+        } catch (ArrayVazio e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void menuModificar() {
