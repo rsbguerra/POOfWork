@@ -112,7 +112,7 @@ public class Utilizador implements Serializable {
                 System.out.println(drugs.get(i).toString() + "\n");
             }
 
-            System.out.println("Qual o medicamento que quer modificar?(insira o seu codigo)");
+            System.out.println("Qual o medicamento? (insira o codigo)");
 
             while (true) {
                 id = Read.Int();

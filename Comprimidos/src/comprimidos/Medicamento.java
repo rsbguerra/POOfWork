@@ -87,7 +87,7 @@ public class Medicamento implements Serializable {
         return "Nome: " + nome
                 + "\nCodigo: " + id
                 + "\nDescricao: " + descricao
-                + "Periodo toma: " + periodo_toma
+                + "\nPeriodo toma: " + periodo_toma.toString()
                 + "\nQuantidade: " + quantidade + "\n";
     }
 }
