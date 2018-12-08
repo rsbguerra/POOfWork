@@ -99,15 +99,15 @@ public class Utilizador implements Serializable {
         this.medicamentos = medicamentos;
     }
 
-    public Medicamento findDroga() throws NullPointerException {
-        
-            ArrayList<Medicamento> drugs = getMedicamentos();
-            int i;
+    public Medicamento findDroga(){
+        ArrayList<Medicamento> drugs = getMedicamentos();
+        int i;
 
-            if (drugs.isEmpty()) {
-                throw new NullPointerException();
-            }
-
+        if (drugs.isEmpty()) {
+            System.out.println("this bitch empty");
+            return null;
+        } 
+        else {
             for (i = 0; i < drugs.size(); i++) {
                 System.out.println(drugs.get(i).toString() + "\n");
             }
@@ -125,9 +125,12 @@ public class Utilizador implements Serializable {
 
                 if (i > drugs.size()) {
                     System.out.println("Medicamento não encontrado");
+                    return null;
                 }
             }
-        } 
+        }
+
+    }
 
     @Override
     public String toString() {

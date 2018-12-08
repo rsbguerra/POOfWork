@@ -24,6 +24,7 @@ public class GerirMedicamentos {
     public static void gerirMed(int idUtilizador, ArrayList<Utilizador> utilizadores) {
         int op;
         while (true) {
+            MenuMedicamentos();
             op = Read.Int();
             switch (op) {
                 // adicionar medicamento
@@ -42,8 +43,8 @@ public class GerirMedicamentos {
 
                 //consultar todos os medicamntos
                 case 4:
+                    utilizadores.get(idUtilizador).findDroga();
                     break;
-
                 /* 
                     no fim de fazer as alteraçoes necessarias aos medicamentos, 
                     alteraçoes feitas ao arraylist utilizadores sao guardadas no 
@@ -152,6 +153,7 @@ public class GerirMedicamentos {
 
     public static void remover(int idUtilizador, ArrayList<Utilizador> utilizadores) {
         
+        utilizadores.get(idUtilizador).getMedicamentos().remove();
     }
 
     public static void menuModificar() {

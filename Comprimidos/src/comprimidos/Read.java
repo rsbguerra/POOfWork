@@ -1,7 +1,7 @@
 package comprimidos;
 
-import java.io.*;
-import java.util.*;
+import java.io.Serializable;
+import java.util.Scanner;
 
 public class Read implements Serializable {
 
