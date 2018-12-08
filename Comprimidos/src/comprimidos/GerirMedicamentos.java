@@ -79,22 +79,6 @@ public class GerirMedicamentos {
         System.out.print("Medicamento e tomado de hora a hora ou de dias a dias(h/d): ");
         char op = Read.Char();
 
-        System.out.println("Primeira toma: ");
-
-        System.out.println("minutos: ");
-        int minutos = Read.Int();
-
-        System.out.println("hora: ");
-        int hora = Read.Int();
-
-        System.out.println("dia: ");
-        int dia = Read.Int();
-
-        System.out.println("mes: ");
-        int mes = Read.Int();
-
-        Data primeiraToma = new Data(minutos, hora, dia, mes, 0);
-
         System.out.println("Introduza a quantidade a tomar: ");
         int quantidade = Read.Int();
 
@@ -113,19 +97,6 @@ public class GerirMedicamentos {
          */
         while (true) {
 
-            /* eu odeio java
-            
-                entao esta linguagem mal parida nao me deixa declarar duas variaveis
-                com o mesmo nome para cases diferentes, dai eu ter duas datas com 
-                nome diferentes para a mesma coisa
-            
-                MAS
-            
-                estas variaveis so sao locais dentro do switch, isso quer dizer 
-                que nao as posso utiliza-as fora do switch OU SEJA: A ULTIMA 
-                COISA QUE EU VOU LER E O PERIODO DE TOMA E VOU TER DE ADICIONAR
-                O NOVO MEDICAMENTO DENTRO DO SWITCH
-             */
             switch (op) {
 
                 case 'h':
@@ -133,7 +104,7 @@ public class GerirMedicamentos {
                     int horasToma = Read.Int();
                     Data periodoTomaHoras = new Data(horasToma, 0);
 
-                    Medicamento m1 = new Medicamento(codigo, nome, descricao, periodoTomaHoras, primeiraToma, quantidade);
+                    Medicamento m1 = new Medicamento(codigo, nome, descricao, periodoTomaHoras, quantidade);
                     utilizadores.get(idUtilizador).getMedicamentos().add(m1);
 
                     return;
@@ -143,7 +114,7 @@ public class GerirMedicamentos {
                     int diasToma = Read.Int();
                     Data periodoTomaDias = new Data(0, diasToma);
 
-                    Medicamento m2 = new Medicamento(codigo, nome, descricao, periodoTomaDias, primeiraToma, quantidade);
+                    Medicamento m2 = new Medicamento(codigo, nome, descricao, periodoTomaDias, quantidade);
                     utilizadores.get(idUtilizador).getMedicamentos().add(m2);
 
                     return;
