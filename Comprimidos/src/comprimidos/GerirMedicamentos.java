@@ -44,7 +44,7 @@ public class GerirMedicamentos {
                 //consultar todos os medicamntos
                 case 4:
                     try {
-                        utilizadores.get(idUtilizador).findDroga();
+                        System.out.println(utilizadores.get(idUtilizador).findDroga().toString());
                     } catch (ArrayVazio e) {
                         System.out.println(e.getMessage());
                     }
