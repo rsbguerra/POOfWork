@@ -43,7 +43,11 @@ public class GerirMedicamentos {
 
                 //consultar todos os medicamntos
                 case 4:
-                    utilizadores.get(idUtilizador).findDroga();
+                    try {
+                        utilizadores.get(idUtilizador).findDroga();
+                    } catch (ArrayVazio e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 /* 
                     no fim de fazer as alteraçoes necessarias aos medicamentos, 
@@ -60,8 +64,8 @@ public class GerirMedicamentos {
             }
         }
     }
-    
-    public static void menu_PeriodoToma () {
+
+    public static void menu_PeriodoToma() {
         System.out.println("Indique o qual o tipo de periodo de toma:\n1.) x em x horas\n2.) x em x dias\n");
     }
 
@@ -71,7 +75,7 @@ public class GerirMedicamentos {
 
         System.out.print("Introduza o codigo do medicamento: ");
         int codigo = Read.Int();
-                
+
         System.out.print("Medicamento e tomado de hora a hora ou de dias a dias(h/d): ");
         char op = Read.Char();
 
@@ -121,29 +125,29 @@ public class GerirMedicamentos {
                 que nao as posso utiliza-as fora do switch OU SEJA: A ULTIMA 
                 COISA QUE EU VOU LER E O PERIODO DE TOMA E VOU TER DE ADICIONAR
                 O NOVO MEDICAMENTO DENTRO DO SWITCH
-            */
+             */
             switch (op) {
 
                 case 'h':
                     System.out.println("Tomar medicamento de quantas em quantas horas?");
                     int horasToma = Read.Int();
                     Data periodoTomaHoras = new Data(horasToma, 0);
-                    
+
                     Medicamento m1 = new Medicamento(codigo, nome, descricao, periodoTomaHoras, primeiraToma, quantidade);
                     utilizadores.get(idUtilizador).getMedicamentos().add(m1);
-                    
+
                     return;
 
                 case 'd':
                     System.out.println("Tomar medicamento de quantos em quantos dias?");
                     int diasToma = Read.Int();
                     Data periodoTomaDias = new Data(0, diasToma);
-                    
+
                     Medicamento m2 = new Medicamento(codigo, nome, descricao, periodoTomaDias, primeiraToma, quantidade);
                     utilizadores.get(idUtilizador).getMedicamentos().add(m2);
-                    
+
                     return;
-                    
+
                 default:
                     System.out.println("Opção Inválida");
             }
@@ -152,7 +156,7 @@ public class GerirMedicamentos {
     }
 
     public static void remover(int idUtilizador, ArrayList<Utilizador> utilizadores) {
-        
+
         utilizadores.get(idUtilizador).getMedicamentos().remove();
     }
 

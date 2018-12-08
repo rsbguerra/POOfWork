@@ -99,17 +99,13 @@ public class Utilizador implements Serializable {
         this.medicamentos = medicamentos;
     }
 
-    public Medicamento findDroga() throws ArrayVazio{
-        
-            ArrayList<Medicamento> drugs = getMedicamentos();
-            int i;
+    public Medicamento findDroga() throws ArrayVazio {
 
-            if (drugs.isEmpty()) throw new ArrayVazio("Não existem medicamentos!");
-            
+        ArrayList<Medicamento> drugs = getMedicamentos();
+        int i;
 
         if (drugs.isEmpty()) {
-            System.out.println("this bitch empty");
-            return null;
+            throw new ArrayVazio("Não existem medicamentos!");
         } 
         else {
             for (i = 0; i < drugs.size(); i++) {
@@ -127,8 +123,10 @@ public class Utilizador implements Serializable {
                     }
                 }
 
-                if (i > drugs.size()) throw new ArrayVazio("Medicamento não encontrado");
-                
+                if (i > drugs.size()) {
+                    throw new ArrayVazio("Medicamento não encontrado");
+                }
+
             }
         }
 
