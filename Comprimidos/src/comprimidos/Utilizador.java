@@ -106,34 +106,34 @@ public class Utilizador implements Serializable {
 
         if (drugs.isEmpty()) {
             throw new ArrayVazio("Não existem medicamentos!");
-        } 
-        else {
-            for (i = 0; i < drugs.size(); i++) {
-                System.out.println(drugs.get(i).toString() + "\n");
-            }
-
-            System.out.println("Qual o medicamento? (insira o codigo)");
-
-            while (true) {
-                id = Read.Int();
-
-                for (i = 0; i < drugs.size(); i++) {
-                    if (i == id) {
-                        return drugs.get(i);
-                    }
-                }
-
-                if (i > drugs.size()) {
-                    throw new ArrayVazio("Medicamento não encontrado");
-                }
-
-            }
         }
 
+        System.out.println("Qual o medicamento? (insira o codigo)");
+
+       // while (true) {
+            id = Read.Int();
+
+            for (i = 0; i < drugs.size(); i++) {
+                if (i == id)
+                   break;
+                
+            }
+            
+            if(i == id){
+             System.out.println(drugs.get(i).toString());
+             return drugs.get(i);
+            }
+            
+            else throw new ArrayVazio("Medicamento não encontrado");
+            
+
+       // }
     }
 
-    @Override
-    public String toString() {
+
+
+@Override
+        public String toString() {
         return "Nome: " + this.nome
                 + "\nIdade: " + this.idade
                 + "\nId:" + this.id
@@ -142,7 +142,7 @@ public class Utilizador implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+        public boolean equals(Object obj) {
 
         if (obj != null && this.getClass() == obj.getClass()) {
             Utilizador u = (Utilizador) obj;
@@ -158,7 +158,7 @@ public class Utilizador implements Serializable {
     }
 
     @Override
-    public Object clone() {
+        public Object clone() {
         Utilizador copia = new Utilizador(this.nome, this.idade, this.dataNascimento, this.genero, this.password);
         copia.setMedicamentos(medicamentos);
         return copia;
