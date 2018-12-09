@@ -5,9 +5,14 @@ import java.util.*;
 public class Main {
     
     public static void menuLogin() {
-        System.out.println("1 - Login\n"
-                + "2 - Registar\n"
-                + "3 - Sair\n");
+        System.out.println(
+                  "|=====================|\n"
+                + "|      Bem-vindo      |\n"
+                + "|---------------------|\n"
+                + "|   1.) Login         |\n"
+                + "|   2.) Registar      |\n"
+                + "|   3.) Sair          |\n"
+                + "|---------------------|\n");
     }
 
     /*
