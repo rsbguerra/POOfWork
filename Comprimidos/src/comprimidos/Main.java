@@ -21,13 +21,12 @@ public class Main {
     - nao retorna nada e nao recebe parametros
     - 
      */
-    public static void login() {
+    public static void login() throws ArrayVazio {
         ArrayList<Utilizador> utilizadores = Ficheiro.abrir();
 
-        if (utilizadores.isEmpty()) {
-            System.out.println("Não existem utilizadores registados\n");
-            return;
-        }
+        if (utilizadores.isEmpty()) throw new ArrayVazio("Não existem utilizadores registados!");
+            
+        
 
         int i;
         while (true) {
@@ -37,6 +36,8 @@ public class Main {
                 System.out.println(utilizadores.get(i).getId() + " - "
                         + utilizadores.get(i).getNome());
             }
+            
+            System.out.println((i+1) + " - Sair");
 
             int u = Read.Int();
             for (i = 0; i < utilizadores.size(); i++) {
@@ -48,14 +49,15 @@ public class Main {
             String pass;
             if (i < utilizadores.size()) {
                 for (int tentativas = 0; tentativas < 3; tentativas++) {
-                    System.out.print("Introduza password: ");
+                    System.out.print("Introduza password do utilizador " + utilizadores.get(i).getNome() + ": ");
                     pass = Read.String();
                     if (utilizadores.get(i).testarPassword(pass)) {
                         GerirUtilizadores.gerirUtilizadores(i, utilizadores);
                     }
-                    return;
+                    
                 }
                 System.out.println("excedeu limite de tentativas");
+                return;
             }
             
             System.out.println("utilizador nao existe\n");
@@ -93,6 +95,8 @@ public class Main {
     public static void main(String[] args) {
         int op;
         GerirUtilizadores g = new GerirUtilizadores();
+        
+        XMLSave.saveToXML("axml.xml");
 
         while (true) {
             menuLogin();
@@ -100,7 +104,12 @@ public class Main {
 
             switch (op) {
                 case 1:
-                    login();
+                    try{
+                    login();  
+                    }
+                    catch(ArrayVazio e){
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case 2:
                     registar();

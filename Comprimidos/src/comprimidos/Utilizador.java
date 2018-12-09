@@ -94,7 +94,7 @@ public class Utilizador implements Serializable {
     public ArrayList<Medicamento> getMedicamentos() {
         return medicamentos;
     }
-
+    
     public void setMedicamentos(ArrayList<Medicamento> medicamentos) {
         this.medicamentos = medicamentos;
     }
