@@ -205,8 +205,7 @@ public class GerirMedicamentos {
         System.out.println("        1. Nome do medicamento      ");
         System.out.println("        2. Quantidade               ");
         System.out.println("        3. Periodo de toma          ");
-        System.out.println("        4. Data de nascimento       ");
-        System.out.println("        5. Terminar                 ");
+        System.out.println("        4. Terminar                 ");
         System.out.println("<><><><><><><><><><><><><><><><><><>");
     }
 
@@ -290,14 +289,8 @@ public class GerirMedicamentos {
                     System.out.println("\nEscolha outra opção...");
                     break;
                 }
-
-                case 4: {
-                    System.out.println("\n");
-                    Ficheiro.escrever(utilizadores);
-                    return;
-                }
                 
-                case 5:
+                case 4:
                        return;
 
                 default: {
