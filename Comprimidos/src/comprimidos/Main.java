@@ -38,7 +38,7 @@ public class Main {
             }
             
             System.out.println((i+1) + " - Sair");
-            System.out.println("\nIntroduza o ID do utilizador para fazer login:");
+            System.out.print("\nIntroduza o ID do utilizador para fazer login: ");
             int u = Read.Int();
             
             
@@ -50,22 +50,26 @@ public class Main {
 
             String pass;
             if (i < utilizadores.size()) {
-                for (int tentativas = 0; tentativas < 3; tentativas++) {
+                int tentativas;
+                for (tentativas = 0; tentativas < 3; tentativas++) {
                     System.out.print("Introduza password do utilizador " + utilizadores.get(i).getNome() + ": ");
                     pass = Read.String();
                     if (utilizadores.get(i).testarPassword(pass)) {
                         GerirUtilizadores.gerirUtilizadores(i, utilizadores);
+                        break;
                     }
                     
                 }
-                System.out.println("Excedeu limite de tentativas");
+                if(tentativas >= 3)
+                System.out.println("Excedeu limite de tentativas!!");
                 return;
             }
             
-            if ( u == utilizadores.size())
+            if ( u == (utilizadores.size()+1))
+                
                 return;
             else{
-            System.out.println("Esse utilizador não existe\n");
+            System.out.println("Esse utilizador não existe.\n");
             return;
             }
         }
@@ -75,16 +79,16 @@ public class Main {
         ArrayList<Utilizador> utilizadores = Ficheiro.abrir();
         Utilizador NovoUtilizador = new Utilizador();
 
-        System.out.println("Nome: ");
+        System.out.print("Nome: ");
         NovoUtilizador.setNome(Read.String());
 
-        System.out.println("Genero: ");
+        System.out.print("Genero: ");
         NovoUtilizador.setGenero(Read.String());
 
-        System.out.println("Idade: ");
+        System.out.print("Idade: ");
         NovoUtilizador.setIdade(Read.Int());
 
-        System.out.println("Password: ");
+        System.out.print("Password: ");
         NovoUtilizador.setPassword(Read.String());
 
         System.out.println("Data de nascimento (dia, mes, ano):");
@@ -96,6 +100,8 @@ public class Main {
 
         utilizadores.add(NovoUtilizador);
         Ficheiro.escrever(utilizadores);
+        
+        System.out.println("Utilizador registado com sucesso!");
     }
 
     public static void main(String[] args) {

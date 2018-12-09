@@ -28,7 +28,8 @@ public class Utilizador implements Serializable {
     }
 
     public Utilizador(String nome) {
-        this.id = count + 1;
+        count = count + 1;
+        this.id = count;
         this.nome = nome;
         this.idade = 0;
         this.password = "";
@@ -38,7 +39,8 @@ public class Utilizador implements Serializable {
     }
 
     public Utilizador(String nome, int idade, Data dataNascimento, String genero, String password) {
-        this.id = count + 1;
+        count = count + 1;
+        this.id = count;
         this.nome = nome;
         this.idade = idade;
         this.dataNascimento = dataNascimento;
