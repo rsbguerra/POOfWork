@@ -25,6 +25,7 @@ public class GerirMedicamentos {
         int op;
         while (true) {
             MenuMedicamentos();
+            System.out.print("Introduza uma opção: ");
             op = Read.Int();
             switch (op) {
                 // adicionar medicamento
@@ -216,6 +217,7 @@ public class GerirMedicamentos {
         while (ProgramOn) {
 
             menuModificar();
+            System.out.print("Introduza uma opção: ");
             choice = Read.Int();
 
             switch (choice) {

@@ -77,7 +77,7 @@ public class GerirUtilizadores {
 
     public static void remover(int index, ArrayList<Utilizador> lista) {
         char op;
-        System.out.print("are you sure about that?? (y/n): ");
+        System.out.print("Tem a certeza que quer remover?? (y/n): ");
 
         op = Read.Char();
         while ((op != 'y') || (op != 'n')) {
@@ -123,6 +123,7 @@ public class GerirUtilizadores {
         while (true) {
 
             menuModificar();
+            System.out.print("Introduza uma opção: ");
             choice = Read.Int();
 
             switch (choice) {

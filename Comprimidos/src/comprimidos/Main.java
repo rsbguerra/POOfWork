@@ -106,6 +106,7 @@ public class Main {
 
         while (true) {
             menuLogin();
+            System.out.print("Introduza uma opção: ");
             op = Read.Int();
 
             switch (op) {
