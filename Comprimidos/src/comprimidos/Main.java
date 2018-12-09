@@ -96,7 +96,7 @@ public class Main {
         int op;
         GerirUtilizadores g = new GerirUtilizadores();
         
-        XMLSave.saveToXML("axml.xml");
+        //XMLSave.saveToXML("axml.xml");
 
         while (true) {
             menuLogin();
