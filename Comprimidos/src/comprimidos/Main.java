@@ -38,8 +38,12 @@ public class Main {
             }
             
             System.out.println((i+1) + " - Sair");
-
+            System.out.println("\nIntroduza o ID do utilizador para fazer login:");
             int u = Read.Int();
+            
+            if ( u == utilizadores.size())
+                return;
+            
             for (i = 0; i < utilizadores.size(); i++) {
                 if (u == utilizadores.get(i).getId()) {
                     break;
@@ -56,11 +60,11 @@ public class Main {
                     }
                     
                 }
-                System.out.println("excedeu limite de tentativas");
+                System.out.println("Excedeu limite de tentativas");
                 return;
             }
             
-            System.out.println("utilizador nao existe\n");
+            System.out.println("Esse utilizador não existe\n");
             return;
         }
     }
@@ -111,11 +115,17 @@ public class Main {
                         System.out.println(e.getMessage());
                     }
                     break;
+                    
                 case 2:
                     registar();
                     break;
+                    
                 case 3:
                     return;
+                    
+                default:
+                    System.out.println("Opção inválida! Introduzir nova opção\n");
+                    break;
             }
         }
     }
