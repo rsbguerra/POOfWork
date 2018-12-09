@@ -41,8 +41,6 @@ public class Main {
             System.out.println("\nIntroduza o ID do utilizador para fazer login:");
             int u = Read.Int();
             
-            if ( u == utilizadores.size())
-                return;
             
             for (i = 0; i < utilizadores.size(); i++) {
                 if (u == utilizadores.get(i).getId()) {
@@ -64,8 +62,12 @@ public class Main {
                 return;
             }
             
+            if ( u == utilizadores.size())
+                return;
+            else{
             System.out.println("Esse utilizador não existe\n");
             return;
+            }
         }
     }
 

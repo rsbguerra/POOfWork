@@ -170,14 +170,14 @@ public class GerirUtilizadores {
                     System.out.println("\nEscolha outra opção...");
                     break;
                 }
-
+                
                 /* 
                     no fim de fazer as alteraçoes necessarias ao utilizador, 
                     alteraçoes feitas ao arraylist utilizadores sao guardadas no 
                     ficheiro e retorna-se para o menu MenuUtilizadores() ainda nesta classe
                  */
+                
                 case 5: {
-
                     System.out.println("\n");
                     Ficheiro.escrever(lista);
                     return;
