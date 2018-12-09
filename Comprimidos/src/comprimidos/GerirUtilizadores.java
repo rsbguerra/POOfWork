@@ -26,6 +26,7 @@ public class GerirUtilizadores {
         
         while (true) {
             MenuUtilizadores();
+            System.out.print("Introduza uma opção: ");
             choice = Read.Int();
 
             switch (choice) {

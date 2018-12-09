@@ -8,10 +8,10 @@ public class Medicamento implements Serializable {
     private int id;
     private String nome;
     private String descricao;
-    private Data periodo_toma;
+    private int periodo_toma;
     private int quantidade;
 
-    public Medicamento(int id, String nome, String descricao, Data periodo_toma, int quantidade) {
+    public Medicamento(int id, String nome, String descricao, int periodo_toma, int quantidade) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -23,7 +23,7 @@ public class Medicamento implements Serializable {
         this.id = -1;
         this.nome = "";
         this.descricao = "";
-        this.periodo_toma = new Data();
+        this.periodo_toma = 0;
         this.quantidade = 0;
     }
 
@@ -55,11 +55,11 @@ public class Medicamento implements Serializable {
         this.quantidade = quantidade;
     }
 
-    public Data getPeriodo_toma() {
+    public int getPeriodo_toma() {
         return this.periodo_toma;
     }
 
-    public void setPeriodo_toma(Data periodo_toma) {
+    public void setPeriodo_toma(int periodo_toma) {
         this.periodo_toma = periodo_toma;
     }
 
@@ -71,7 +71,7 @@ public class Medicamento implements Serializable {
                     && this.quantidade == m.quantidade
                     && this.nome.equals(m.nome)
                     && this.descricao.equals(m.descricao)
-                    && this.periodo_toma.equals(m.periodo_toma));
+                    && this.periodo_toma == m.periodo_toma);
         } else {
             return false;
         }
@@ -87,7 +87,7 @@ public class Medicamento implements Serializable {
         return "Nome: " + nome
                 + "\nCodigo: " + id
                 + "\nDescricao: " + descricao
-                + "\nPeriodo toma: " + periodo_toma.toString()
+                + "\nPeriodo toma: " + periodo_toma
                 + "\nQuantidade: " + quantidade + "\n";
     }
 }

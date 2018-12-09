@@ -73,26 +73,17 @@ public class GerirMedicamentos {
 
         System.out.print("Introduza o codigo do medicamento: ");
         int codigo = Read.Int();
-
-        System.out.print("Medicamento e tomado de hora a hora ou de dias a dias(h/d): ");
-        char op = Read.Char();
-
-        System.out.println("Introduza a quantidade a tomar: ");
-        int quantidade = Read.Int();
-
+        
         System.out.print("Introduza a descriçao do medicamento: ");
         String descricao = Read.String();
 
-        /*
-            - dar a escolher ao utilizador se quer tomar o medicamento 
-              de x em x horas (ex: 12 em 12 horas) ou de x em x dias (ex 7 em 7 dias)
-            - se utilizador escolhe de x em x horas, e criada uma nova data
-              com todas as variaveis a 0, e horas com o valor introduzido
-            - se utilizador escolhe de x em x dias, e criada uma nova data
-              com todas as variaveis a 0, e dias com o valor introduzido
-            - se e introduzida uma opçao invalida, o utilizador tem de voltar a 
-              introduzir se perfere dias ou horas  
-         */
+        System.out.println("Introduza a quantidade a tomar: ");
+        int quantidade = Read.Int();
+        
+        
+        System.out.print("Medicamento e tomado de hora a hora ou de dias a dias(h/d): ");
+        char op = Read.Char();
+
         while (true) {
 
             switch (op) {
@@ -100,9 +91,8 @@ public class GerirMedicamentos {
                 case 'h':
                     System.out.println("Tomar medicamento de quantas em quantas horas?");
                     int horasToma = Read.Int();
-                    Data periodoTomaHoras = new Data(horasToma, 0);
 
-                    Medicamento m1 = new Medicamento(codigo, nome, descricao, periodoTomaHoras, quantidade);
+                    Medicamento m1 = new Medicamento(codigo, nome, descricao, horasToma, quantidade);
                     utilizadores.get(idUtilizador).getMedicamentos().add(m1);
 
                     return;
@@ -110,7 +100,8 @@ public class GerirMedicamentos {
                 case 'd':
                     System.out.println("Tomar medicamento de quantos em quantos dias?");
                     int diasToma = Read.Int();
-                    Data periodoTomaDias = new Data(0, diasToma);
+                    int periodoTomaDias = 24*diasToma;
+                    System.out.println("O medicamento vai ser tomado de " + periodoTomaDias + " horas em " + periodoTomaDias + " horas.");
 
                     Medicamento m2 = new Medicamento(codigo, nome, descricao, periodoTomaDias, quantidade);
                     utilizadores.get(idUtilizador).getMedicamentos().add(m2);
@@ -129,8 +120,7 @@ public class GerirMedicamentos {
         int i;
 
         try {
-            if (medicamentos.isEmpty()) throw new ArrayVazio("Nao existem medicamentos!");
-            
+            if (medicamentos.isEmpty()) throw new ArrayVazio("Nao existem medicamentos!");     
 
             for (i = 0; i < medicamentos.size(); i++) {
                 System.out.println("nome: " + medicamentos.get(i).getNome()
