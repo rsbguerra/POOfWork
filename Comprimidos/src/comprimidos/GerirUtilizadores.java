@@ -139,7 +139,7 @@ public class GerirUtilizadores {
                     System.out.println("\nEscolha outra opção...");
                     break;
                 }
-
+                //modificar genero
                 case 2: {
                     System.out.print("Introduza o novo genero: ");
                     String genero = Read.String();
@@ -149,7 +149,7 @@ public class GerirUtilizadores {
                     System.out.println("\nEscolha outra opção...");
                     break;
                 }
-
+                //modificar idade
                 case 3: {
                     System.out.print("Introduza a nova idade: ");
                     int idade = Read.Int();
@@ -159,7 +159,7 @@ public class GerirUtilizadores {
                     System.out.println("\nEscolha outra opção...");
                     break;
                 }
-
+                //modificar data de nasc
                 case 4: {
                     System.out.print("Introduza a nova data de nascimento: ");
                     int dia = Read.Int();
