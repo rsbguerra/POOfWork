@@ -55,13 +55,14 @@ public class Main {
                     System.out.print("Introduza password do utilizador " + utilizadores.get(i).getNome() + ": ");
                     pass = Read.String();
                     if (utilizadores.get(i).testarPassword(pass)) {
-                        GerirUtilizadores.gerirUtilizadores(i, utilizadores);
+                        System.out.println("\nBem-vindo de volta, " + utilizadores.get(i).getNome() + "!\n");
+                        GerirUtilizadores.gerirUtilizadores(i, utilizadores);   // menuUtilizadores
                         break;
                     }
                     
                 }
                 if(tentativas >= 3)
-                System.out.println("Excedeu limite de tentativas!!");
+                System.out.println("Excedeu limite de tentativas!\nAté à próxima!");
                 return;
             }
             
@@ -91,7 +92,7 @@ public class Main {
         System.out.print("Password: ");
         NovoUtilizador.setPassword(Read.String());
 
-        System.out.println("Data de nascimento (dia, mes, ano):");
+        System.out.println("Data de nascimento (dia, mês, ano):");
         int dia = Read.Int();
         int mes = Read.Int();
         int ano = Read.Int();
@@ -133,7 +134,7 @@ public class Main {
                     return;
                     
                 default:
-                    System.out.println("Opção inválida! Introduzir nova opção\n");
+                    System.out.println("Opção inválida! Introduza nova opção.\n");
                     break;
             }
         }
