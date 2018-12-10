@@ -65,6 +65,7 @@ public class GerirUtilizadores {
                     ficheiro e retorna-se para o menu MenuUtilizadores() ainda nesta classe
                  */
                 case 5: {
+                    System.out.println("Até à próxima!");
                     Ficheiro.escrever(utilizadores);
                     return;
                 }
@@ -78,8 +79,8 @@ public class GerirUtilizadores {
 
     public static void remover(int index, ArrayList<Utilizador> lista) {
         char op;
-        System.out.print("Tem a certeza que quer apagar a sua conta? (y/n): ");
-        
+        System.out.print("Tem a certeza que quer remover? (y/n): ");
+
         op = Read.Char();
         while ((op != 'y') || (op != 'n')) {
             switch (op) {
@@ -89,7 +90,7 @@ public class GerirUtilizadores {
                 case 'n':
                     return;
                 default:
-                    System.out.println("op invalida");
+                    System.out.println("Opção inválida");
                     break;
             }
         }
