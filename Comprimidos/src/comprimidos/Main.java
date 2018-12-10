@@ -82,8 +82,6 @@ public class Main {
     
     public static void loginAdmin() {
         
-        
-        
         String pass;
         int tentativas;
         for (tentativas = 0; tentativas < 3; tentativas++) {

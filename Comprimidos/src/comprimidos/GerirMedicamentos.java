@@ -21,7 +21,8 @@ public class GerirMedicamentos {
                 + "|   2.) Remover Medicamento        |\n"
                 + "|   3.) Modificar Medicamento      |\n"
                 + "|   4.) Consultar                  |\n"
-                + "|   5.) Voltar atrás               |\n"
+                + "|   5.) Listar                     |\n"
+                + "|   6.) Voltar atrás               |\n"
                 + "|----------------------------------|\n");
     }
 
@@ -56,8 +57,15 @@ public class GerirMedicamentos {
                     alteraçoes feitas ao arraylist utilizadores sao guardadas no 
                     ficheiro e retorna-se para o menu MenuUtilizadores() em gerirUtilizadores
                  */
-                case 5:
-
+                    
+                case 5: {
+                    ArrayList<Medicamento> meds = utilizadores.get(idUtilizador).getMedicamentos();
+                    
+                    for (int i=0; i< meds.size(); i++)
+                        System.out.println("Medicamento " + (i+1) + ":\n\tNome: " + meds.get(i).getNome() + "\n\tId: " + meds.get(i).getid() + "\n");
+                }
+                    
+                case 6:
                     Ficheiro.escrever(utilizadores);
                     return;
 
@@ -80,10 +88,6 @@ public class GerirMedicamentos {
         System.out.print("Introduza a quantidade a tomar: ");
         int quantidade = Read.Int();
         
-        
-        System.out.print("Medicamento é tomado de hora a hora ou de dias a dias(h/d): ");
-        char op = Read.Char();
-        
         System.out.print("Introduza a data da primeira toma no formato hh:mm, dd/mm/aa.\n");
         System.out.print("Hora: ");
         int h = Read.Int();
@@ -99,6 +103,22 @@ public class GerirMedicamentos {
         
         ArrayList<Data> tomas_futuras = new ArrayList();
         tomas_futuras.add(prim_toma);
+        
+        
+        
+        
+        
+        
+        System.out.print("Medicamento deve ser tomado de hora a hora ou de dias a dias(h/d): ");
+        char op = Read.Char();
+
+        
+            
+
+            // falta TRY CATCH caso introduza algum char diferente de h ou d.
+
+
+
 
         while (true) {
 
@@ -185,8 +205,8 @@ public class GerirMedicamentos {
             if (medicamentos.isEmpty()) throw new ArrayVazio("Nao existem medicamentos!");     
 
             for (i = 0; i < medicamentos.size(); i++) {
-                System.out.println("nome: " + medicamentos.get(i).getNome()
-                        + "\ncodigo: " + medicamentos.get(i).getid() + "\n");
+                System.out.println("\nMedicamento " + (i+1) + ":\n\tNome: " + medicamentos.get(i).getNome()
+                        + "\n\tCódigo: " + medicamentos.get(i).getid() + "\n");
             }
 
             System.out.print("Qual o código do medicamento? ");
@@ -218,18 +238,21 @@ public class GerirMedicamentos {
 
             System.out.println("Medicamentos registados\n");
             for (i = 0; i < medicamentos.size(); i++) 
-                System.out.println("Nome: " + medicamentos.get(i).getNome()
-                        + "\nCódigo: " + medicamentos.get(i).getid() + "\n");
+                System.out.println("Medicamento " + (i+1) + "\n\tNome: " + medicamentos.get(i).getNome()
+                        + "\n\tCódigo: " + medicamentos.get(i).getid() + "\n");
 
             System.out.print("Qual o código do medicamento? ");
             int id = Read.Int();
 
             for (i = 0; i < medicamentos.size(); i++)
                 if (id == medicamentos.get(i).getid())
+                {
                     medicamentos.remove(i);
-            
-            if (i > medicamentos.size())
-                throw new ArrayVazio("Medicamento não existe!");
+                    System.out.println("Medicamento removido.");
+                    break;
+                }
+                else
+                    System.out.println("Medicamento não encontrado.");
             
         } catch (ArrayVazio e) {
             System.out.println(e.getMessage());
@@ -239,11 +262,11 @@ public class GerirMedicamentos {
     private static void showMedicamentos(ArrayList<Medicamento> medicamentos){
         int i;
         System.out.println("<><><><><><><><><><><><><><><><><><>");
-        System.out.println("   Escolha o que pretende alterar   ");
+        System.out.println("  Escolha o medicamento a alterar   ");
         System.out.println("<><><><><><><><><><><><><><><><><><>");
         for (i = 0; i < medicamentos.size(); i++)
-            System.out.println( medicamentos.get(i));
-        System.out.println((medicamentos.size() +1) + " - " + " Sair" );
+            System.out.println("\nMedicamento " + (i+1) + ": " + "\n\tNome: " + medicamentos.get(i).getNome() + "\n\tId: " + medicamentos.get(i).getid());
+        System.out.println("0" + " - " + " Sair" );
         System.out.println("<><><><><><><><><><><><><><><><><><>");
     }
     
@@ -255,99 +278,111 @@ public class GerirMedicamentos {
         System.out.println("        2. Quantidade               ");
         System.out.println("        3. Período de toma          ");
         System.out.println("        4. Terminar                 ");
-        System.out.println("<><><><><><><><><><><><><><><><><><>");
+        System.out.println("<><><><><><><><><><><><><><><><><><>\n");
     }
 
     public static void modificar(int idUtilizador, ArrayList<Utilizador> utilizadores) {
         int choice = 0;
         boolean ProgramOn = true;
+        
+        ArrayList<Medicamento> medicamentos = utilizadores.get(idUtilizador).getMedicamentos();
+        
+        try {
+            if (medicamentos.isEmpty()) throw new ArrayVazio("Nao existem medicamentos!");
+           
+            while (ProgramOn) {
 
-        while (ProgramOn) {
+                menuModificar();
+                System.out.print("Introduza uma opção: ");
+                choice = Read.Int();
 
-            menuModificar();
-            System.out.print("Introduza uma opção: ");
-            choice = Read.Int();
-
-            switch (choice) {
-                case 1: {
-                    showMedicamentos(utilizadores.get(idUtilizador).getMedicamentos());
-                    System.out.println("Código do medicamento: ");
-                    int id = Read.Int();
-                    int i;
-                    for (i = 0; i < utilizadores.get(idUtilizador).getMedicamentos().size(); i++) {
-                        if(id == utilizadores.get(idUtilizador).getMedicamentos().get(i).getid()){
-                                System.out.print("Introduza o novo nome: ");
-                                String nome = Read.String();
-                                utilizadores.get(idUtilizador).getMedicamentos().get(i).setNome(nome);
-                                break;
+                switch (choice) {
+                    case 1: {
+                        showMedicamentos(utilizadores.get(idUtilizador).getMedicamentos());
+                        System.out.println("Código do medicamento: ");
+                        int id = Read.Int();
+                        
+                        if (id == 0)
+                            return;
+                        
+                        int i;
+                        for (i = 0; i < utilizadores.get(idUtilizador).getMedicamentos().size(); i++) {
+                            if(id == utilizadores.get(idUtilizador).getMedicamentos().get(i).getid()){
+                                    System.out.print("Introduza o novo nome: ");
+                                    String nome = Read.String();
+                                    utilizadores.get(idUtilizador).getMedicamentos().get(i).setNome(nome);
+                                    System.out.println("Medicamento modificado com sucesso.");
+                                    System.out.println(utilizadores.get(idUtilizador).getMedicamentos().get(i));
+                                    break;
+                            }
+                            else
+                                System.out.println("Medicamento não encontrado");
                         }
-                    }
-                    if(i == utilizadores.get(idUtilizador).getMedicamentos().size())  //  Verificar se encontrou o medicamento.
-                        System.out.println("Medicamento não encontrado");
-                    else {
-                    System.out.println("Medicamento modificado com sucesso.");
-                    System.out.println(utilizadores.get(idUtilizador).getMedicamentos().get(0));
-                    }
-                    System.out.println("\nEscolha outra opção...");
-                    break;
-                    
-                }
+                        
+                        System.out.println("\nEscolha outra opção...");
+                        break;
 
-                case 2: {
-                    showMedicamentos(utilizadores.get(idUtilizador).getMedicamentos());
-                    System.out.println("Código do medicamento: ");
-                    int id = Read.Int();
-                    int i;
-                    for (i = 0; i < utilizadores.get(idUtilizador).getMedicamentos().size(); i++) {
-                        if(id == utilizadores.get(idUtilizador).getMedicamentos().get(i).getid()){
-                                System.out.print("Introduza a nova quantidade: ");
-                                int quanti = Read.Int();
-                                utilizadores.get(idUtilizador).getMedicamentos().get(i).setQuantidade(quanti);
-                                break;
-                        } 
                     }
-                    if(i == utilizadores.get(idUtilizador).getMedicamentos().size())  //  Verificar se encontrou o medicamento.
-                        System.out.println("Medicamento não encontrado");
-                    else {
-                    System.out.println("Medicamento modificado com sucesso.");
-                    System.out.println(utilizadores.get(idUtilizador).getMedicamentos().get(0));
-                    }
-                    System.out.println("\nEscolha outra opção...");
-                    break;
-                }
 
-                case 3: {
-                    showMedicamentos(utilizadores.get(idUtilizador).getMedicamentos());
-                    System.out.println("Código do medicamento: ");
-                    int id = Read.Int();
-                    int i;
-                    for (i = 0; i < utilizadores.get(idUtilizador).getMedicamentos().size(); i++) {
-                        if(id == utilizadores.get(idUtilizador).getMedicamentos().get(i).getid()){
-                                System.out.print("Introduza o novo o período de toma: ");
-                                int pt = Read.Int();
-                                utilizadores.get(idUtilizador).getMedicamentos().get(i).setPeriodo_toma(pt);
-                                break;
+                    case 2: {
+                        showMedicamentos(utilizadores.get(idUtilizador).getMedicamentos());
+                        System.out.println("Código do medicamento: ");
+                        int id = Read.Int();
+                        int i;
+                        for (i = 0; i < utilizadores.get(idUtilizador).getMedicamentos().size(); i++) {
+                            if(id == utilizadores.get(idUtilizador).getMedicamentos().get(i).getid()){
+                                    System.out.print("Introduza a nova quantidade: ");
+                                    int quanti = Read.Int();
+                                    utilizadores.get(idUtilizador).getMedicamentos().get(i).setQuantidade(quanti);
+                                    break;
+                            } 
                         }
+                        if(i == utilizadores.get(idUtilizador).getMedicamentos().size())  //  Verificar se encontrou o medicamento.
+                            System.out.println("Medicamento não encontrado");
+                        else {
+                        System.out.println("Medicamento modificado com sucesso.");
+                        System.out.println(utilizadores.get(idUtilizador).getMedicamentos().get(0));
+                        }
+                        System.out.println("\nEscolha outra opção...");
+                        break;
                     }
-                    if(i == utilizadores.get(idUtilizador).getMedicamentos().size())  //  Verificar se encontrou o medicamento.
-                        System.out.println("Medicamento não encontrado");
-                    else {
-                    System.out.println("Medicamento modificado com sucesso.");
-                    System.out.println(utilizadores.get(idUtilizador).getMedicamentos().get(0));
-                    }
-                    System.out.println("\nEscolha outra opção...");
-                    break;
-                }
-                
-                case 4:
-                       return;
 
-                default: {
-                    System.out.println("Opção inválida.");
-                    break;
+                    case 3: {
+                        showMedicamentos(utilizadores.get(idUtilizador).getMedicamentos());
+                        System.out.println("Código do medicamento: ");
+                        int id = Read.Int();
+                        int i;
+                        for (i = 0; i < utilizadores.get(idUtilizador).getMedicamentos().size(); i++) {
+                            if(id == utilizadores.get(idUtilizador).getMedicamentos().get(i).getid()){
+                                    System.out.print("Introduza o novo o período de toma: ");
+                                    int pt = Read.Int();
+                                    utilizadores.get(idUtilizador).getMedicamentos().get(i).setPeriodo_toma(pt);
+                                    break;
+                            }
+                        }
+                        if(i == utilizadores.get(idUtilizador).getMedicamentos().size())  //  Verificar se encontrou o medicamento.
+                            System.out.println("Medicamento não encontrado");
+                        else {
+                        System.out.println("Medicamento modificado com sucesso.");
+                        System.out.println(utilizadores.get(idUtilizador).getMedicamentos().get(0));
+                        }
+                        System.out.println("\nEscolha outra opção...");
+                        break;
+                    }
+
+                    case 4:
+                           return;
+
+                    default: {
+                        System.out.println("Opção inválida.");
+                        break;
+                    }
                 }
             }
         }
-
+        
+        catch (ArrayVazio e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

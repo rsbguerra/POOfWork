@@ -41,7 +41,7 @@ public class Admin extends Utilizador{
     public static void Admin_menuInicial ()
     {
         System.out.println("<><><><><><><><><><><><>");
-        System.out.println("   Escolha uma opção   ");
+        System.out.println("       Modo Admin      ");
         System.out.println("<><><><><><><><><><><><>");
         System.out.println("   1. Modificar        ");
         System.out.println("   2. Remover          ");

@@ -5,17 +5,17 @@
             <url>src/comprimidos/GerirMedicamentos.java</url>
             <bookmark id="6">
                 <name/>
-                <line>23</line>
+                <line>29</line>
                 <key/>
             </bookmark>
             <bookmark id="7">
                 <name/>
-                <line>65</line>
+                <line>67</line>
                 <key/>
             </bookmark>
             <bookmark id="8">
                 <name/>
-                <line>74</line>
+                <line>76</line>
                 <key/>
             </bookmark>
         </file>
@@ -49,6 +49,15 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/User/Documents/GitHub/POOfWork/Comprimidos/src/comprimidos/Utilizador.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/POOfWork/Comprimidos/src/comprimidos/GerirUtilizadores.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/POOfWork/Comprimidos/src/comprimidos/Medicamento.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/POOfWork/Comprimidos/src/comprimidos/Ficheiro.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/POOfWork/Comprimidos/src/comprimidos/GerirMedicamentos.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/POOfWork/Comprimidos/src/comprimidos/Data.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/POOfWork/Comprimidos/src/comprimidos/Admin.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/POOfWork/Comprimidos/src/comprimidos/Main.java</file>
+        </group>
     </open-files>
 </project-private>
