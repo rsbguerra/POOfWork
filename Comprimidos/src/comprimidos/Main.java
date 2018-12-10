@@ -59,11 +59,16 @@ public class Main {
                         break;
                     }
                     
+                    else
+                        System.out.println("Password incorreta. Tem mais " + (2-tentativas) + " tentativa(s).");
+                    
                 }
                 if(tentativas >= 3)
                 System.out.println("Excedeu limite de tentativas!\nAté à próxima!");
                 return;
             }
+            
+            
             
             if ( u == (utilizadores.size()+1))
                 
@@ -76,6 +81,9 @@ public class Main {
     }
     
     public static void loginAdmin() {
+        
+        
+        
         String pass;
         int tentativas;
         for (tentativas = 0; tentativas < 3; tentativas++) {
@@ -83,28 +91,37 @@ public class Main {
             pass = Read.String();
             if (pass.equals("admin")) {
                 System.out.println("\n#Admin: Entrou em modo admin.\n");
-                Admin.Admin_menuInicial();
-                int x = Read.Int();
-                while(x != 3){
+                
+                ArrayList<Utilizador> lista = Ficheiro.abrir();
+                
+                while(true){
+                    Admin.Admin_menuInicial();
+                    System.out.print("Introduza uma opção: ");
+                    int x = Read.Int();
+                    
                     switch(x){
-                        case 1:
+                        case 1:{
+                            Admin.Admin_modificar(lista);
                             break;
-                        case 2:
+                        }
+                        case 2:{
+                            Admin.Admin_remove(lista);
                             break;
+                        }
                         case 3:
-                            break;
+                            return;
                         default:
                             System.out.println("Opção inválida\n");
                             
                     }
-                    Admin.Admin_menuInicial();
-                    x = Read.Int();
                 }
-                break;
             }
+            
+            else
+                System.out.println("Password incorreta. Tem mais " + (2-tentativas) + " tentativa(s).");
         }
             if(tentativas >= 3)
-                System.out.println("Excedeu limite de tentativas!\nAté à próxima!");
+                System.out.println("Excedeu limite de tentativas!\n");
                 return;
     }
 

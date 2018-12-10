@@ -102,7 +102,8 @@ public class GerirUtilizadores {
         System.out.println("            2. Género               ");
         System.out.println("            3. Idade                ");
         System.out.println("            4. Data de nascimento   ");
-        System.out.println("            5. Terminar             ");
+        System.out.println("            5. Password             ");
+        System.out.println("            6. Terminar             ");
         System.out.println("<><><><><><><><><><><><><><><><><><>");
     }
     
@@ -177,6 +178,15 @@ public class GerirUtilizadores {
                  */
                 
                 case 5: {
+                    System.out.println("Introduza a nova password: ");
+                    String pass = Read.String();
+                    lista.get(index).setPassword(pass);
+                    System.out.println("Password alterada com sucesso.");
+                    System.out.println("\nEscolha outra opção...");
+                    break;
+                }
+                
+                case 6: {
                     System.out.println("\n");
                     Ficheiro.escrever(lista);
                     return;

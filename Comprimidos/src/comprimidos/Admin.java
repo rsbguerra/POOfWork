@@ -5,10 +5,9 @@ import java.util.ArrayList;
 public class Admin extends Utilizador{
     
     
-    public Admin(Utilizador admino){
-        super(admino.getNome());
+    public Admin(String nome){
+        super(nome);
     }
-    
     
     public static void Admin_remove(ArrayList<Utilizador> lista) {
         
@@ -33,6 +32,11 @@ public class Admin extends Utilizador{
         }    
     }
     
+    public String getPassword ()
+    {
+        return super.getPassword();
+    }
+    
     
     public static void Admin_menuInicial ()
     {
@@ -54,7 +58,8 @@ public class Admin extends Utilizador{
         System.out.println("            2. Género               ");
         System.out.println("            3. Idade                ");
         System.out.println("            4. Data de nascimento   ");
-        System.out.println("            5. Terminar             ");
+        System.out.println("            5. Password             ");
+        System.out.println("            6. Terminar             ");
         System.out.println("<><><><><><><><><><><><><><><><><><>");
     }
     
@@ -68,6 +73,7 @@ public class Admin extends Utilizador{
     public static void Admin_modificar(ArrayList<Utilizador> lista) 
     {
         int choice;
+        Admin_listarNome(lista);
         System.out.print("Qual o utilizador que quer modificar? ");
         int index = Read.Int();
         
@@ -131,6 +137,15 @@ public class Admin extends Utilizador{
                  */
                 
                 case 5: {
+                    System.out.println("Introduza a nova password: ");
+                    String pass = Read.String();
+                    lista.get(index).setPassword(pass);
+                    System.out.println("Password modificada com sucesso.");
+                    System.out.println("\nEscolha outra opção...");
+                    break;
+                }
+                
+                case 6: {
                     System.out.println("\n");
                     Ficheiro.escrever(lista);
                     return;
@@ -144,11 +159,10 @@ public class Admin extends Utilizador{
         }
     }
     
-    public static void Admin_listarTodos(ArrayList<Utilizador> lista)
+    public static void Admin_listarNome(ArrayList<Utilizador> lista)
     {
         int i=0;
         for (i=0; i<lista.size(); i++)
-            System.out.println(lista.get(i).toString());
+            System.out.println("Utilizador " + lista.get(i).getId() + ": " + lista.get(i).getNome() + "\n");
     }
-    
 }
