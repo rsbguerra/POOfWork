@@ -6,10 +6,8 @@ public class GerirMedicamentos {
 
     public static void MenuMedicamentos() {
         System.out.println(
-                "|==================================|\n"
-                + "|                                  |\n"
+                "\n|==================================|\n"
                 + "|               MENU               |\n"
-                + "|                                  |\n"
                 + "|==================================|\n"
                 + "|        Selecione uma opção       |\n"
                 + "|----------------------------------|\n"
@@ -176,9 +174,7 @@ public class GerirMedicamentos {
     private static void showMedicamentos(ArrayList<Medicamento> medicamentos){
         int i;
         System.out.println("<><><><><><><><><><><><><><><><><><>");
-        System.out.println("                                    ");
         System.out.println("   Escolha o que pretende alterar   ");
-        System.out.println("                                    ");
         System.out.println("<><><><><><><><><><><><><><><><><><>");
         for (i = 0; i < medicamentos.size(); i++)
             System.out.println( medicamentos.get(i));
@@ -188,9 +184,7 @@ public class GerirMedicamentos {
     
     public static void menuModificar() {
         System.out.println("<><><><><><><><><><><><><><><><><><>");
-        System.out.println("                                    ");
         System.out.println("   Escolha o que pretende alterar   ");
-        System.out.println("                                    ");
         System.out.println("<><><><><><><><><><><><><><><><><><>");
         System.out.println("        1. Nome do medicamento      ");
         System.out.println("        2. Quantidade               ");
