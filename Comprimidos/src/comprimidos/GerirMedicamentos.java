@@ -1,5 +1,11 @@
 package comprimidos;
 
+/* 1º PRIMEIRA TOMA
+   2º QUANTAS TOMAS (X)
+   3º GUARDAR 1ª TOMA E FAZER LOGO X*PERIODO_DE_TOMA P/ GUARDAR TODO O PREVISTO HISTÓRICO DE TOMA
+   4º VERIFICAR TOMAS JÁ PASSADAS CASO A PESSOA NÃO ESTEJA PRESENTE NA HORA DOS ALERTAS
+*/
+
 import java.util.ArrayList;
 
 public class GerirMedicamentos {
@@ -7,7 +13,7 @@ public class GerirMedicamentos {
     public static void MenuMedicamentos() {
         System.out.println(
                 "\n|==================================|\n"
-                + "|               MENU               |\n"
+                + "|           MEDICAMENTOS           |\n"
                 + "|==================================|\n"
                 + "|        Selecione uma opção       |\n"
                 + "|----------------------------------|\n"
@@ -61,10 +67,6 @@ public class GerirMedicamentos {
         }
     }
 
-    public static void menu_PeriodoToma() {
-        System.out.println("Indique o qual o tipo de periodo de toma:\n1.) x em x horas\n2.) x em x dias\n");
-    }
-
     public static void adicionar(int idUtilizador, ArrayList<Utilizador> utilizadores) {
         System.out.print("Introduza nome do novo medicamento: ");
         String nome = Read.String();
@@ -75,12 +77,28 @@ public class GerirMedicamentos {
         System.out.print("Introduza a descriçao do medicamento: ");
         String descricao = Read.String();
 
-        System.out.println("Introduza a quantidade a tomar: ");
+        System.out.print("Introduza a quantidade a tomar: ");
         int quantidade = Read.Int();
         
         
-        System.out.print("Medicamento e tomado de hora a hora ou de dias a dias(h/d): ");
+        System.out.print("Medicamento é tomado de hora a hora ou de dias a dias(h/d): ");
         char op = Read.Char();
+        
+        System.out.print("Introduza a data da primeira toma no formato hh:mm, dd/mm/aa.\n");
+        System.out.print("Hora: ");
+        int h = Read.Int();
+        System.out.print("Minuto: ");
+        int min = Read.Int();
+        System.out.print("Dia: ");
+        int d = Read.Int();
+        System.out.print("Mês: ");
+        int m = Read.Int();
+        System.out.print("Ano: ");
+        int a = Read.Int();
+        Data prim_toma = new Data (h,min,d,m,a);
+        
+        ArrayList<Data> tomas_futuras = new ArrayList();
+        tomas_futuras.add(prim_toma);
 
         while (true) {
 
@@ -90,7 +108,7 @@ public class GerirMedicamentos {
                     System.out.println("Tomar medicamento de quantas em quantas horas?");
                     int horasToma = Read.Int();
 
-                    Medicamento m1 = new Medicamento(codigo, nome, descricao, horasToma, quantidade);
+                    Medicamento m1 = new Medicamento(codigo, nome, descricao, horasToma, quantidade, prim_toma);
                     utilizadores.get(idUtilizador).getMedicamentos().add(m1);
 
                     return;
@@ -101,7 +119,7 @@ public class GerirMedicamentos {
                     int periodoTomaDias = 24*diasToma;
                     System.out.println("O medicamento vai ser tomado de " + periodoTomaDias + " horas em " + periodoTomaDias + " horas.");
 
-                    Medicamento m2 = new Medicamento(codigo, nome, descricao, periodoTomaDias, quantidade);
+                    Medicamento m2 = new Medicamento(codigo, nome, descricao, periodoTomaDias, quantidade, prim_toma);
                     utilizadores.get(idUtilizador).getMedicamentos().add(m2);
 
                     return;
@@ -111,6 +129,52 @@ public class GerirMedicamentos {
             }
             break;
         }
+        
+        for (int i=0; i<quantidade-1; i++)
+        {
+            int m1_m2 = utilizadores.get(idUtilizador).getMedicamentos().size()-1; // descobre qual a posiçao do ultimo medicamento 
+            Medicamento med = utilizadores.get(idUtilizador).getMedicamentos().get(m1_m2);  // qual o ultimo medicamento
+            
+            int new_hora = prim_toma.getHora() + med.getPeriodo_toma();
+            int new_dia = 0;
+            int new_mes = 0;
+            int new_ano= 0;
+            
+            while (new_hora > 24)
+            {
+                int new_h = new_hora - 24;
+                new_dia++;
+                
+                new_hora = new_h;
+            }
+            
+            while (new_dia > 30)
+            {
+                int new_d = new_dia - 30;
+                new_mes++;
+                
+                new_dia = new_d;
+            }
+            
+            while (new_mes > 12)
+            {
+                int new_m = new_mes - 12;
+                new_ano++;
+                
+                new_mes = new_m;
+            }
+                
+            int new_minutos = prim_toma.getMinuto();
+            
+            Data new_toma = new Data(new_minutos, new_hora, new_dia, new_mes, new_ano);
+                                // minutos da primeira toma 
+                                
+            tomas_futuras.add(new_toma);
+            
+            prim_toma = new_toma;
+        }
+        
+        utilizadores.get(idUtilizador).setTomas_Futuras(tomas_futuras);
     }
 
     public static void consultar(int idUtilizador, ArrayList<Utilizador> utilizadores) {
@@ -125,7 +189,7 @@ public class GerirMedicamentos {
                         + "\ncodigo: " + medicamentos.get(i).getid() + "\n");
             }
 
-            System.out.print("Qual o medicamento? (insira o codigo): ");
+            System.out.print("Qual o código do medicamento? ");
             int id = Read.Int();
 
             for (i = 0; i < medicamentos.size(); i++) {
@@ -135,7 +199,7 @@ public class GerirMedicamentos {
             }
 
             if (i > medicamentos.size()) {
-                throw new ArrayVazio("Medicamento nao existe!");
+                throw new ArrayVazio("Medicamento não existe!");
             }
 
         } catch (ArrayVazio e) {
@@ -150,13 +214,14 @@ public class GerirMedicamentos {
 
         try {
             if (medicamentos.isEmpty()) 
-                throw new ArrayVazio("Nao existem medicamentos!");
+                throw new ArrayVazio("Não existem medicamentos!");
 
+            System.out.println("Medicamentos registados\n");
             for (i = 0; i < medicamentos.size(); i++) 
-                System.out.println("nome: " + medicamentos.get(i).getNome()
-                        + "\ncodigo: " + medicamentos.get(i).getid() + "\n");
+                System.out.println("Nome: " + medicamentos.get(i).getNome()
+                        + "\nCódigo: " + medicamentos.get(i).getid() + "\n");
 
-            System.out.print("Qual o medicamento? (insira o codigo): ");
+            System.out.print("Qual o código do medicamento? ");
             int id = Read.Int();
 
             for (i = 0; i < medicamentos.size(); i++)
@@ -164,7 +229,7 @@ public class GerirMedicamentos {
                     medicamentos.remove(i);
             
             if (i > medicamentos.size())
-                throw new ArrayVazio("Medicamento nao existe!");
+                throw new ArrayVazio("Medicamento não existe!");
             
         } catch (ArrayVazio e) {
             System.out.println(e.getMessage());
@@ -188,7 +253,7 @@ public class GerirMedicamentos {
         System.out.println("<><><><><><><><><><><><><><><><><><>");
         System.out.println("        1. Nome do medicamento      ");
         System.out.println("        2. Quantidade               ");
-        System.out.println("        3. Periodo de toma          ");
+        System.out.println("        3. Período de toma          ");
         System.out.println("        4. Terminar                 ");
         System.out.println("<><><><><><><><><><><><><><><><><><>");
     }

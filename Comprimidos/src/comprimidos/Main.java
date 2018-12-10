@@ -11,7 +11,8 @@ public class Main {
                 + "|---------------------|\n"
                 + "|   1.) Login         |\n"
                 + "|   2.) Registar      |\n"
-                + "|   3.) Sair          |\n"
+                + "|   3.) Acesso Admin  |\n"
+                + "|   4.) Sair          |\n"
                 + "|---------------------|\n");
     }
 
@@ -26,8 +27,6 @@ public class Main {
 
         if (utilizadores.isEmpty()) throw new ArrayVazio("Não existem utilizadores registados!");
             
-        
-
         int i;
         while (true) {
             System.out.println("Utilizadores disponiveis: \n");
@@ -74,6 +73,39 @@ public class Main {
             return;
             }
         }
+    }
+    
+    public static void loginAdmin() {
+        String pass;
+        int tentativas;
+        for (tentativas = 0; tentativas < 3; tentativas++) {
+            System.out.print("#Admin: Introduza password: ");
+            pass = Read.String();
+            if (pass.equals("admin")) {
+                System.out.println("\n#Admin: Entrou em modo admin.\n");
+                Admin.Admin_menuInicial();
+                int x = Read.Int();
+                while(x != 3){
+                    switch(x){
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        default:
+                            System.out.println("Opção inválida\n");
+                            
+                    }
+                    Admin.Admin_menuInicial();
+                    x = Read.Int();
+                }
+                break;
+            }
+        }
+            if(tentativas >= 3)
+                System.out.println("Excedeu limite de tentativas!\nAté à próxima!");
+                return;
     }
 
     public static void registar() {
@@ -131,6 +163,12 @@ public class Main {
                     break;
                     
                 case 3:
+                {
+                    loginAdmin();
+                    break;
+                }
+                
+                case 4:
                     return;
                     
                 default:

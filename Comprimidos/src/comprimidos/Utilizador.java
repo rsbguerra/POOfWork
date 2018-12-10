@@ -13,6 +13,7 @@ public class Utilizador implements Serializable {
     private Data dataNascimento;
     private String genero;
     private ArrayList<Medicamento> medicamentos;
+    private ArrayList<Data> tomas_futuras;
     private String password;
 
     public Utilizador() {
@@ -87,6 +88,16 @@ public class Utilizador implements Serializable {
 
     public String getGenero() {
         return genero;
+    }
+    
+    public ArrayList<Data> getTomas_Futuras()
+    {
+        return tomas_futuras;
+    }
+    
+    public void setTomas_Futuras (ArrayList<Data> tomas)
+    {
+        this.tomas_futuras = tomas;
     }
 
     public void setGenero(String genero) {

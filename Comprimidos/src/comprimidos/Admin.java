@@ -34,12 +34,21 @@ public class Admin extends Utilizador{
     }
     
     
+    public static void Admin_menuInicial ()
+    {
+        System.out.println("<><><><><><><><><><><><>");
+        System.out.println("   Escolha uma opção   ");
+        System.out.println("<><><><><><><><><><><><>");
+        System.out.println("   1. Modificar        ");
+        System.out.println("   2. Remover          ");
+        System.out.println("   3. Terminar         ");
+        System.out.println("<><><><><><><><><><><><>");
+    }
+        
     
      public static void Admin_menuModificar() {
         System.out.println("<><><><><><><><><><><><><><><><><><>");
-        System.out.println("                                    ");
         System.out.println("   Escolha o que pretende alterar   ");
-        System.out.println("                                    ");
         System.out.println("<><><><><><><><><><><><><><><><><><>");
         System.out.println("            1. Nome                 ");
         System.out.println("            2. Género               ");
