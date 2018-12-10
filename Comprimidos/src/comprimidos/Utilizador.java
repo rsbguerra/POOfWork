@@ -154,7 +154,7 @@ public class Utilizador implements Serializable {
         public String toString() {
         return "Nome: " + this.nome
                 + "\nIdade: " + this.idade
-                + "\nId:" + this.id
+                + "\nId: " + this.id
                 + "\nData de nascimento: " + dataNascimento.toString()
                 + "\nGenero: " + this.genero;
     }
