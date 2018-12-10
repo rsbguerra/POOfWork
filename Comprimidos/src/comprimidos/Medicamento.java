@@ -11,6 +11,7 @@ public class Medicamento implements Serializable {
     private int periodo_toma;
     private int quantidade;
     private Data prim_toma;
+    private ArrayList<Data> tomas_futuras;  // cada comprimido terá uma lista com as datas das tomas futuras
 
     public Medicamento(int id, String nome, String descricao, int periodo_toma, int quantidade, Data prim_toma) {
         this.id = id;
@@ -32,6 +33,17 @@ public class Medicamento implements Serializable {
     public int getid() {
         return this.id;
     }
+    
+    public ArrayList<Data> getTomas_Futuras()
+    {
+        return tomas_futuras;
+    }
+    
+    public void setTomas_Futuras (ArrayList<Data> tomas)
+    {
+        this.tomas_futuras = tomas;
+    }
+
 
     public String getNome() {
         return nome;

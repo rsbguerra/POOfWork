@@ -5,20 +5,16 @@ import java.util.*;
 
 public class Utilizador implements Serializable {
 
-    private static int count = 0;
-
     private int id;
     private String nome;
     private int idade;
     private Data dataNascimento;
     private String genero;
     private ArrayList<Medicamento> medicamentos;
-    private ArrayList<Data> tomas_futuras;
     private String password;
 
     public Utilizador() {
-        count = count + 1;
-        this.id = count;
+        this.id = 0;
         this.nome = "";
         this.idade = 0;
         this.dataNascimento = new Data();
@@ -29,8 +25,7 @@ public class Utilizador implements Serializable {
     }
 
     public Utilizador(String nome) {
-        count = count + 1;
-        this.id = count;
+        this.id = 0;
         this.nome = nome;
         this.idade = 0;
         this.password = "";
@@ -40,8 +35,7 @@ public class Utilizador implements Serializable {
     }
 
     public Utilizador(String nome, int idade, Data dataNascimento, String genero, String password) {
-        count = count + 1;
-        this.id = count;
+        this.id = 0;
         this.nome = nome;
         this.idade = idade;
         this.dataNascimento = dataNascimento;
@@ -52,6 +46,10 @@ public class Utilizador implements Serializable {
 
     public int getId() {
         return id;
+    }
+    
+    public void setId (int id) {
+        this.id = id;
     }
 
     public boolean testarPassword(String passwordIntroduzida) {
@@ -95,16 +93,6 @@ public class Utilizador implements Serializable {
         return genero;
     }
     
-    public ArrayList<Data> getTomas_Futuras()
-    {
-        return tomas_futuras;
-    }
-    
-    public void setTomas_Futuras (ArrayList<Data> tomas)
-    {
-        this.tomas_futuras = tomas;
-    }
-
     public void setGenero(String genero) {
         this.genero = genero;
     }

@@ -7,7 +7,7 @@ public class Main {
     public static void menuLogin() {
         System.out.println(
                   "|=====================|\n"
-                + "|      Bem-vindo      |\n"
+                + "|       EasyPill      |\n"
                 + "|---------------------|\n"
                 + "|   1.) Login         |\n"
                 + "|   2.) Registar      |\n"
@@ -36,10 +36,14 @@ public class Main {
                         + utilizadores.get(i).getNome());
             }
             
-            System.out.println((i+1) + " - Sair");
-            System.out.print("\nIntroduza o ID do utilizador para fazer login: ");
+            System.out.println(0 + " - Sair");
+            System.out.print("\nIntroduza o Id do utilizador para fazer login: ");
             int u = Read.Int();
             
+            if (u == 0) {
+                System.out.println("Até à próxima!");
+                System.exit(0);
+            }
             
             for (i = 0; i < utilizadores.size(); i++) {
                 if (u == utilizadores.get(i).getId()) {
@@ -54,7 +58,7 @@ public class Main {
                     System.out.print("Introduza password do utilizador " + utilizadores.get(i).getNome() + ": ");
                     pass = Read.String();
                     if (utilizadores.get(i).testarPassword(pass)) {
-                        System.out.println("\nBem-vindo de volta, " + utilizadores.get(i).getNome() + "!\n");
+                        System.out.println("\nBem-vindo/a de volta, " + utilizadores.get(i).getNome() + "!\n");
                         GerirUtilizadores.gerirUtilizadores(i, utilizadores);   // menuUtilizadores
                         break;
                     }
@@ -68,9 +72,7 @@ public class Main {
                 return;
             }
             
-            
-            
-            if ( u == (utilizadores.size()+1))
+            if ( u == utilizadores.size())
                 
                 return;
             else{
@@ -104,7 +106,8 @@ public class Main {
                         }
                         case 2:{
                             Admin.Admin_remove(lista);
-                            break;
+                            Ficheiro.escrever(lista);
+                            return;
                         }
                         case 3:
                             return;
@@ -136,15 +139,16 @@ public class Main {
         System.out.print("Idade: ");
         NovoUtilizador.setIdade(Read.Int());
 
-        System.out.print("Password: ");
-        NovoUtilizador.setPassword(Read.String());
-
         System.out.println("Data de nascimento (dia, mês, ano):");
         int dia = Read.Int();
         int mes = Read.Int();
         int ano = Read.Int();
         Data d = new Data(dia, mes, ano);
         NovoUtilizador.setDataNascimento(d);
+
+        System.out.print("Password: ");
+        NovoUtilizador.setPassword(Read.String());
+        NovoUtilizador.setId(utilizadores.size()+1);
 
         utilizadores.add(NovoUtilizador);
         Ficheiro.escrever(utilizadores);
