@@ -15,7 +15,7 @@ public class Admin extends Utilizador{
         System.out.print("Qual o utilizador que quer remover? ");
         int index = Read.Int();
                 
-        System.out.print("Tem a certeza que quer remover?? (y/n): ");
+        System.out.print("Tem a certeza que quer remover? (y/n): ");
         char op;
         op = Read.Char();
         
@@ -56,9 +56,11 @@ public class Admin extends Utilizador{
         - no fim de cada alteraçao mostra toda a informaçao do utilizador com 
           os dados alterados
     */
-    public static void Admin_modificar(int index, ArrayList<Utilizador> lista) 
+    public static void Admin_modificar(ArrayList<Utilizador> lista) 
     {
         int choice;
+        System.out.print("Qual o utilizador que quer modificar? ");
+        int index = Read.Int();
         
         // removi a var ProgramOn pois o valor desta nunca e alterado
         while (true) {
@@ -132,4 +134,12 @@ public class Admin extends Utilizador{
             }
         }
     }
+    
+    public static void Admin_listarTodos(ArrayList<Utilizador> lista)
+    {
+        int i=0;
+        for (i=0; i<lista.size(); i++)
+            System.out.println(lista.get(i).toString());
+    }
+    
 }

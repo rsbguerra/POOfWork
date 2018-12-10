@@ -78,8 +78,8 @@ public class GerirUtilizadores {
 
     public static void remover(int index, ArrayList<Utilizador> lista) {
         char op;
-        System.out.print("Tem a certeza que quer remover?? (y/n): ");
-
+        System.out.print("Tem a certeza que quer apagar a sua conta? (y/n): ");
+        
         op = Read.Char();
         while ((op != 'y') || (op != 'n')) {
             switch (op) {
