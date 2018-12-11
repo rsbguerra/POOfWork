@@ -13,7 +13,18 @@ public class Admin extends Utilizador{
         
         Admin_listarNome(lista);
         System.out.print("Qual o utilizador que quer remover? ");
-        int index = Read.Int()-1;
+        int id = Read.Int();
+        int i;
+        
+        for (i=0; i < lista.size(); i++) {
+            if (lista.get(i).getId() == id)
+                break;
+        }
+        
+        if (i>=lista.size()) {
+            System.out.println("Utilizador não encontrado.");
+            return;
+        }
                 
         System.out.print("Tem a certeza que quer remover? (y/n): ");
         char op;
@@ -22,7 +33,7 @@ public class Admin extends Utilizador{
         while ((op != 'y') || (op != 'n')) {
             switch (op) {
                 case 'y':
-                    lista.remove(index);
+                    lista.remove(i);
                     return;
                 case 'n':
                     return;
@@ -76,13 +87,19 @@ public class Admin extends Utilizador{
         int choice;
         Admin_listarNome(lista);
         System.out.print("Qual o utilizador que quer modificar? ");
-        int index = Read.Int()-1;
+        int id = Read.Int();
+        int i;
         
-        if (index >= lista.size()-1)
+        for (i=0; i < lista.size(); i++) {
+            if (lista.get(i).getId() == id)
+                break;
+        }
+        
+        if (i>=lista.size()) {
             System.out.println("Utilizador não encontrado.");
+            return;
+        }
         
-        
-        else {
             // removi a var ProgramOn pois o valor desta nunca e alterado
             while (true) {
 
@@ -96,9 +113,9 @@ public class Admin extends Utilizador{
                     case 1: {
                         System.out.print("Introduza o novo nome: ");
                         String nome = Read.String();
-                        lista.get(index).setNome(nome);
+                        lista.get(i).setNome(nome);
                         System.out.println("Utilizador modificado com sucesso.");
-                        System.out.println(lista.get(index).toString());
+                        System.out.println(lista.get(i).toString());
                         System.out.println("\nEscolha outra opção...");
                         break;
                     }
@@ -106,9 +123,9 @@ public class Admin extends Utilizador{
                     case 2: {
                         System.out.print("Introduza o novo genero: ");
                         String genero = Read.String();
-                        lista.get(index).setGenero(genero);
+                        lista.get(i).setGenero(genero);
                         System.out.println("Utilizador modificado com sucesso.");
-                        System.out.println(lista.get(index).toString());
+                        System.out.println(lista.get(i).toString());
                         System.out.println("\nEscolha outra opção...");
                         break;
                     }
@@ -116,9 +133,9 @@ public class Admin extends Utilizador{
                     case 3: {
                         System.out.print("Introduza a nova idade: ");
                         int idade = Read.Int();
-                        lista.get(index).setIdade(idade);
+                        lista.get(i).setIdade(idade);
                         System.out.println("Utilizador modificado com sucesso.");
-                        System.out.println(lista.get(index).toString());
+                        System.out.println(lista.get(i).toString());
                         System.out.println("\nEscolha outra opção...");
                         break;
                     }
@@ -129,9 +146,9 @@ public class Admin extends Utilizador{
                         int mes = Read.Int();
                         int ano = Read.Int();
                         Data data_nascimento = new Data(dia, mes, ano);
-                        lista.get(index).setDataNascimento(data_nascimento);
+                        lista.get(i).setDataNascimento(data_nascimento);
                         System.out.println("Utilizador modificado com sucesso.");
-                        System.out.println(lista.get(index).toString());
+                        System.out.println(lista.get(i).toString());
                         System.out.println("\nEscolha outra opção...");
                         break;
                     }
@@ -145,7 +162,7 @@ public class Admin extends Utilizador{
                     case 5: {
                         System.out.println("Introduza a nova password: ");
                         String pass = Read.String();
-                        lista.get(index).setPassword(pass);
+                        lista.get(i).setPassword(pass);
                         System.out.println("Password modificada com sucesso.");
                         System.out.println("\nEscolha outra opção...");
                         break;
@@ -164,7 +181,6 @@ public class Admin extends Utilizador{
                 }
             }
         }
-    }
     
     public static void Admin_listarNome(ArrayList<Utilizador> lista)
     {

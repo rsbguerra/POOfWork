@@ -110,15 +110,7 @@ public class GerirMedicamentos {
         System.out.print("Medicamento deve ser tomado de hora a hora ou de dias a dias(h/d): ");
         char op = Read.Char();
 
-        
-            
-
-            // falta TRY CATCH caso introduza algum char diferente de h ou d.
-
-
-
-
-        while (true) {
+        while (((op != 'h') || (op != 'd'))) {
 
             switch (op) {
 

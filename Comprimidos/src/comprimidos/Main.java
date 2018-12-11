@@ -40,10 +40,8 @@ public class Main {
             System.out.print("\nIntroduza o Id do utilizador para fazer login: ");
             int u = Read.Int();
             
-            if (u == 0) {
-                System.out.println("Até à próxima!");
-                System.exit(0);
-            }
+            if (u == 0) 
+                return;
             
             for (i = 0; i < utilizadores.size(); i++) {
                 if (u == utilizadores.get(i).getId()) {
