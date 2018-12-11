@@ -8,36 +8,48 @@ public class Read implements Serializable {
     public static String String() {
         String s = "";
 
-        try {
-            Scanner sc = new Scanner(System.in);
-            s = sc.nextLine();
-        } catch (Exception e) {
-            System.out.println("Error: Not a String");
+        while (true) {
+            try {
+                Scanner sc = new Scanner(System.in);
+                s = sc.nextLine();
+
+                break;
+            } catch (Exception e) {
+                System.out.println("Error: Not a String");
+            }
+
         }
         return s;
     }
 
     public static int Int() {
         int i = 0;
-        try {
-            Scanner sc = new Scanner(System.in);
-            i = sc.nextInt();
-        } catch (Exception e) {
-            System.out.println("Error: Not an Int");
-        }
 
+        while (true) {
+            try {
+                Scanner sc = new Scanner(System.in);
+                i = sc.nextInt();
+
+                break;
+            } catch (Exception e) {
+                System.out.println("Error: Not an Int");
+            }
+        }
         return i;
     }
 
     public static char Char() {
         char c = ' ';
+        while (true) {
 
-        try {
-            Scanner sc = new Scanner(System.in);
+            try {
+                Scanner sc = new Scanner(System.in);
 
-            c = sc.next().charAt(0);
-        } catch (Exception e) {
-            System.out.println("Error: Not a Char");
+                c = sc.next().charAt(0);
+                break;
+            } catch (Exception e) {
+                System.out.println("Error: Not a Char");
+            }
         }
         return c;
     }
