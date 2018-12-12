@@ -3,10 +3,10 @@ package comprimidos;
 import java.util.*;
 
 public class Main {
-    
+
     public static void menuLogin() {
         System.out.println(
-                  "|=====================|\n"
+                "|=====================|\n"
                 + "|      Bem-vindo      |\n"
                 + "|---------------------|\n"
                 + "|   1.) Login         |\n"
@@ -24,9 +24,9 @@ public class Main {
     public static void login() throws ArrayVazio {
         ArrayList<Utilizador> utilizadores = Ficheiro.abrir();
 
-        if (utilizadores.isEmpty()) throw new ArrayVazio("Não existem utilizadores registados!");
-            
-        
+        if (utilizadores.isEmpty()) {
+            throw new ArrayVazio("Não existem utilizadores registados!");
+        }
 
         int i;
         while (true) {
@@ -36,12 +36,11 @@ public class Main {
                 System.out.println(utilizadores.get(i).getId() + " - "
                         + utilizadores.get(i).getNome());
             }
-            
-            System.out.println((i+1) + " - Sair");
+
+            System.out.println((i + 1) + " - Sair");
             System.out.print("\nIntroduza o ID do utilizador para fazer login: ");
             int u = Read.Int();
-            
-            
+
             for (i = 0; i < utilizadores.size(); i++) {
                 if (u == utilizadores.get(i).getId()) {
                     break;
@@ -58,19 +57,19 @@ public class Main {
                         GerirUtilizadores.gerirUtilizadores(i, utilizadores);
                         break;
                     }
-                    
+
                 }
-                if(tentativas >= 3)
-                System.out.println("Excedeu limite de tentativas!!");
+                if (tentativas >= 3) {
+                    System.out.println("Excedeu limite de tentativas!!");
+                }
                 return;
             }
-            
-            if ( u == (utilizadores.size()+1))
-                
+
+            if (u == (utilizadores.size() + 1)) {
                 return;
-            else{
-            System.out.println("Esse utilizador não existe.\n");
-            return;
+            } else {
+                System.out.println("Esse utilizador não existe.\n");
+                return;
             }
         }
     }
@@ -100,16 +99,15 @@ public class Main {
 
         utilizadores.add(NovoUtilizador);
         Ficheiro.escrever(utilizadores);
-        
+
         System.out.println("Utilizador registado com sucesso!");
     }
 
     public static void main(String[] args) {
         int op;
         GerirUtilizadores g = new GerirUtilizadores();
-        
-        //XMLSave.saveToXML("axml.xml");
 
+        //XMLSave.saveToXML("axml.xml");
         while (true) {
             menuLogin();
             System.out.print("Introduza uma opção: ");
@@ -117,21 +115,20 @@ public class Main {
 
             switch (op) {
                 case 1:
-                    try{
-                    login();  
-                    }
-                    catch(ArrayVazio e){
+                    try {
+                        login();
+                    } catch (ArrayVazio e) {
                         System.out.println(e.getMessage());
                     }
                     break;
-                    
+
                 case 2:
                     registar();
                     break;
-                    
+
                 case 3:
                     return;
-                    
+
                 default:
                     System.out.println("Opção inválida! Introduzir nova opção\n");
                     break;

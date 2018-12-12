@@ -24,7 +24,6 @@ public class Utilizador implements Serializable {
         this.genero = "";
         this.medicamentos = new ArrayList<>();
         this.password = "";
-
     }
 
     public Utilizador(String nome) {
