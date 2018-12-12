@@ -10,13 +10,15 @@ public class Medicamento implements Serializable {
     private String descricao;
     private int periodo_toma;
     private int quantidade;
+    private ArrayList<Data> tomas_futuras;
 
-    public Medicamento(int id, String nome, String descricao, int periodo_toma, int quantidade) {
+    public Medicamento(int id, String nome, String descricao, int periodo_toma, int quantidade, ArrayList<Data> tomas_futuras) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.periodo_toma = periodo_toma;
         this.quantidade = quantidade;
+        this.tomas_futuras = tomas_futuras;
     }
 
     public Medicamento() {
@@ -63,6 +65,14 @@ public class Medicamento implements Serializable {
         this.periodo_toma = periodo_toma;
     }
 
+    public void setTomas_Futuras (ArrayList<Data> lista)
+    {
+        this.tomas_futuras = lista;
+    }
+    
+    
+    // atualizar equals todas as classes de objetos
+   
     public boolean equals(Object obj) {
 
         if (obj != null && this.getClass() == obj.getClass()) {
@@ -71,23 +81,24 @@ public class Medicamento implements Serializable {
                     && this.quantidade == m.quantidade
                     && this.nome.equals(m.nome)
                     && this.descricao.equals(m.descricao)
-                    && this.periodo_toma == m.periodo_toma);
+                    && this.periodo_toma == m.periodo_toma
+                    && this.tomas_futuras.equals(m.tomas_futuras));
         } else {
             return false;
         }
     }
 
     public Object clone() {
-        Medicamento copia = new Medicamento(this.id, this.nome, this.descricao, this.periodo_toma, this.quantidade);
+        Medicamento copia = new Medicamento(this.id, this.nome, this.descricao, this.periodo_toma, this.quantidade, this.tomas_futuras);
         return copia;
     }
 
     @Override
     public String toString() {
         return "Nome: " + nome
-                + "\nCodigo: " + id
-                + "\nDescricao: " + descricao
-                + "\nPeriodo toma: " + periodo_toma
+                + "\nCódigo: " + id
+                + "\nDescrição: " + descricao
+                + "\nPeríodo toma: " + periodo_toma
                 + "\nQuantidade: " + quantidade + "\n";
     }
 }
