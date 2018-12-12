@@ -1,5 +1,7 @@
 package comprimidos;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class GerirUtilizadores {
@@ -23,7 +25,7 @@ public class GerirUtilizadores {
 
     public static void gerirUtilizadores(int index, ArrayList<Utilizador> utilizadores) {
         int choice;
-        
+
         while (true) {
             MenuUtilizadores();
             System.out.print("Introduza uma opção: ");
@@ -53,7 +55,7 @@ public class GerirUtilizadores {
                 /*
                     chama metodo gerirMed(int idUtilizador, ArrayList<Utilizador> utilizadores)
                     na classe GerirMedicamentos
-                */
+                 */
                 case 4: {
                     GerirMedicamentos.gerirMed(index, utilizadores);
                     break;
@@ -76,6 +78,22 @@ public class GerirUtilizadores {
         }
     }
 
+    public static void removerTomasPassadas(int index, ArrayList<Utilizador> utilizadores) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+
+        ArrayList<Medicamento> medicamentos = utilizadores.get(index).getMedicamentos();
+        ArrayList<LocalDateTime> tomas;
+        for (int i = 0; i < medicamentos.size(); i++) {
+            tomas = medicamentos.get(i).getTomas_Futuras();
+            
+            for(int j = 0; j < tomas.size(); j++){
+                if(tomas.get(i).isBefore(now))
+                    tomas.remove(j);
+            }
+        }
+    }
+
     public static void remover(int index, ArrayList<Utilizador> lista) {
         char op;
         System.out.print("Tem a certeza que quer remover?? (y/n): ");
@@ -94,7 +112,7 @@ public class GerirUtilizadores {
             }
         }
     }
-    
+
     public static void menuModificar() {
         System.out.println("<><><><><><><><><><><><><><><><><><>");
         System.out.println("                                    ");
@@ -108,18 +126,17 @@ public class GerirUtilizadores {
         System.out.println("            5. Terminar             ");
         System.out.println("<><><><><><><><><><><><><><><><><><>");
     }
-    
+
     /*
         - recebe a posição do utilizador na lista dos Utilizadores 
           e a lista dos utilizadores
         - chama menuModificar() para o utilizador escolher o campo a alterar
         - no fim de cada alteraçao mostra toda a informaçao do utilizador com 
           os dados alterados
-    */
-    public static void modificar(int index, ArrayList<Utilizador> lista) 
-    {
+     */
+    public static void modificar(int index, ArrayList<Utilizador> lista) {
         int choice;
-        
+
         // removi a var ProgramOn pois o valor desta nunca e alterado
         while (true) {
 
@@ -128,7 +145,7 @@ public class GerirUtilizadores {
             choice = Read.Int();
 
             switch (choice) {
-                
+
                 // modificar nome
                 case 1: {
                     System.out.print("Introduza o novo nome: ");
@@ -162,23 +179,25 @@ public class GerirUtilizadores {
                 //modificar data de nasc
                 case 4: {
                     System.out.print("Introduza a nova data de nascimento: ");
+
                     int dia = Read.Int();
                     int mes = Read.Int();
                     int ano = Read.Int();
-                    Data data_nascimento = new Data(dia, mes, ano);
+
+                    LocalDateTime data_nascimento = LocalDateTime.of(ano, mes, dia, 0, 0);
                     lista.get(index).setDataNascimento(data_nascimento);
+
                     System.out.println("Utilizador modificado com sucesso.");
                     System.out.println(lista.get(index).toString());
                     System.out.println("\nEscolha outra opção...");
                     break;
                 }
-                
+
                 /* 
                     no fim de fazer as alteraçoes necessarias ao utilizador, 
                     alteraçoes feitas ao arraylist utilizadores sao guardadas no 
                     ficheiro e retorna-se para o menu MenuUtilizadores() ainda nesta classe
                  */
-                
                 case 5: {
                     System.out.println("\n");
                     Ficheiro.escrever(lista);

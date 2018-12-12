@@ -1,6 +1,8 @@
 package comprimidos;
 
-import java.io.*;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Medicamento implements Serializable {
@@ -10,9 +12,9 @@ public class Medicamento implements Serializable {
     private String descricao;
     private int periodo_toma;
     private int quantidade;
-    private ArrayList<Data> tomas_futuras;
+    private ArrayList<LocalDateTime> tomas_futuras;
 
-    public Medicamento(int id, String nome, String descricao, int periodo_toma, int quantidade, ArrayList<Data> tomas_futuras) {
+    public Medicamento(int id, String nome, String descricao, int periodo_toma, int quantidade, ArrayList<LocalDateTime> tomas_futuras) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -29,8 +31,11 @@ public class Medicamento implements Serializable {
         this.quantidade = 0;
     }
 
-    public int getid() {
+    public int getId() {
         return this.id;
+    }
+    public void setId(int id){
+        this.id = id;
     }
 
     public String getNome() {
@@ -65,14 +70,14 @@ public class Medicamento implements Serializable {
         this.periodo_toma = periodo_toma;
     }
 
-    public void setTomas_Futuras (ArrayList<Data> lista)
-    {
+    public ArrayList<LocalDateTime> getTomas_Futuras(){
+        return tomas_futuras;
+    }
+    
+    public void setTomas_Futuras (ArrayList<LocalDateTime> lista){
         this.tomas_futuras = lista;
     }
     
-    
-    // atualizar equals todas as classes de objetos
-   
     public boolean equals(Object obj) {
 
         if (obj != null && this.getClass() == obj.getClass()) {
@@ -100,5 +105,17 @@ public class Medicamento implements Serializable {
                 + "\nDescrição: " + descricao
                 + "\nPeríodo toma: " + periodo_toma
                 + "\nQuantidade: " + quantidade + "\n";
+    }
+    
+    public String tomasToString(){
+        String s = "";
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        s = s + "\nNome: " + this.nome + "\n";
+        
+        for(int i = 0; i < this.tomas_futuras.size(); i++){
+            s = s + formato.format(this.tomas_futuras.get(i));
+        }
+        
+        return s;
     }
 }

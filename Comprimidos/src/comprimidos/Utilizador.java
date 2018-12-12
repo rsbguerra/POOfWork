@@ -7,8 +7,6 @@ import java.util.ArrayList;
 
 public class Utilizador implements Serializable {
 
-    private static int count = 0;
-
     private int id;
     private String nome;
     private int idade;
@@ -18,30 +16,28 @@ public class Utilizador implements Serializable {
     private String password;
 
     public Utilizador() {
-        count = count + 1;
-        this.id = count;
+        this.id = 0;
         this.nome = "";
         this.idade = 0;
-        this.dataNascimento = LocalDateTime.of(0, 0, 0, 0, 0);
+        this.dataNascimento = LocalDateTime.of(1, 1, 1, 0, 0);
         this.genero = "";
         this.medicamentos = new ArrayList<>();
         this.password = "";
     }
 
     public Utilizador(String nome) {
-        count = count + 1;
-        this.id = count;
+        this.id = 0;
         this.nome = nome;
         this.idade = 0;
         this.password = "";
-        this.dataNascimento = LocalDateTime.of(0, 0, 0, 0, 0);
+        this.dataNascimento = LocalDateTime.of(1, 1, 1, 0, 0);
         this.genero = "";
         this.medicamentos = new ArrayList<>();
     }
 
     public Utilizador(String nome, int idade, LocalDateTime dataNascimento, String genero, String password) {
-        count = count + 1;
-        this.id = count;
+        
+        this.id = 0;
         this.nome = nome;
         this.idade = idade;
         this.dataNascimento = dataNascimento;
@@ -52,6 +48,9 @@ public class Utilizador implements Serializable {
 
     public int getId() {
         return id;
+    }
+    public void setId(int id){
+        this.id = id;
     }
 
     public boolean testarPassword(String passwordIntroduzida) {
@@ -104,9 +103,9 @@ public class Utilizador implements Serializable {
 
     @Override
     public String toString() {
-        
+
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        
+
         return "Nome: " + this.nome
                 + "\nIdade: " + this.idade
                 + "\nId:" + this.id

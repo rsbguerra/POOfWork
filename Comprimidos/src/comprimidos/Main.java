@@ -1,5 +1,6 @@
 package comprimidos;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Main {
@@ -11,7 +12,8 @@ public class Main {
                 + "|---------------------|\n"
                 + "|   1.) Login         |\n"
                 + "|   2.) Registar      |\n"
-                + "|   3.) Sair          |\n"
+                + "|   3.) Acesso Admin  |\n"
+                + "|   4.) Sair          |\n"
                 + "|---------------------|\n");
     }
 
@@ -22,13 +24,14 @@ public class Main {
     - 
      */
     public static void login() throws ArrayVazio {
+
         ArrayList<Utilizador> utilizadores = Ficheiro.abrir();
 
         if (utilizadores.isEmpty()) {
             throw new ArrayVazio("Não existem utilizadores registados!");
         }
-
         int i;
+
         while (true) {
             System.out.println("Utilizadores disponiveis: \n");
 
@@ -54,13 +57,16 @@ public class Main {
                     System.out.print("Introduza password do utilizador " + utilizadores.get(i).getNome() + ": ");
                     pass = Read.String();
                     if (utilizadores.get(i).testarPassword(pass)) {
-                        GerirUtilizadores.gerirUtilizadores(i, utilizadores);
+                        System.out.println("\nBem-vindo de volta, " + utilizadores.get(i).getNome() + "!\n");
+                        GerirUtilizadores.gerirUtilizadores(i, utilizadores);   // menuUtilizadores
                         break;
+                    } else {
+                        System.out.println("Password incorreta. Tem mais " + (2 - tentativas) + " tentativa(s).");
                     }
 
                 }
                 if (tentativas >= 3) {
-                    System.out.println("Excedeu limite de tentativas!!");
+                    System.out.println("Excedeu limite de tentativas!\nAté à próxima!");
                 }
                 return;
             }
@@ -74,7 +80,52 @@ public class Main {
         }
     }
 
+    public static void loginAdmin() {
+
+        String pass;
+        int tentativas;
+        for (tentativas = 0; tentativas < 3; tentativas++) {
+            System.out.print("#Admin: Introduza password: ");
+            pass = Read.String();
+            if (pass.equals("admin")) {
+                System.out.println("\n#Admin: Entrou em modo admin.\n");
+
+                ArrayList<Utilizador> lista = Ficheiro.abrir();
+
+                while (true) {
+                    Admin.Admin_menuInicial();
+                    System.out.print("Introduza uma opção: ");
+                    int x = Read.Int();
+
+                    switch (x) {
+                        case 1: {
+                            Admin.Admin_modificar(lista);
+                            break;
+                        }
+                        case 2: {
+                            Admin.Admin_remove(lista);
+                            break;
+                        }
+
+                        case 3:
+                            return;
+                        default:
+                            System.out.println("Opção inválida\n");
+
+                    }
+                }
+            } else {
+                System.out.println("Password incorreta. Tem mais " + (2 - tentativas) + " tentativa(s).");
+            }
+        }
+        if (tentativas >= 3) {
+            System.out.println("Excedeu limite de tentativas!\n");
+        }
+        return;
+    }
+
     public static void registar() {
+
         ArrayList<Utilizador> utilizadores = Ficheiro.abrir();
         Utilizador NovoUtilizador = new Utilizador();
 
@@ -94,10 +145,15 @@ public class Main {
         int dia = Read.Int();
         int mes = Read.Int();
         int ano = Read.Int();
-        Data d = new Data(dia, mes, ano);
+        LocalDateTime d = LocalDateTime.of(ano, mes, dia, 0, 0);
+
         NovoUtilizador.setDataNascimento(d);
 
+        NovoUtilizador.setId(utilizadores.size()+1);
+        
         utilizadores.add(NovoUtilizador);
+        
+        
         Ficheiro.escrever(utilizadores);
 
         System.out.println("Utilizador registado com sucesso!");
@@ -125,11 +181,16 @@ public class Main {
                     registar();
                     break;
 
-                case 3:
+                case 3: {
+                    loginAdmin();
+                    break;
+                }
+
+                case 4:
                     return;
 
                 default:
-                    System.out.println("Opção inválida! Introduzir nova opção\n");
+                    System.out.println("Opção inválida! Introduza nova opção.\n");
                     break;
             }
         }
