@@ -1,7 +1,9 @@
 package comprimidos;
 
-import java.io.*;
-import java.util.*;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Utilizador implements Serializable {
 
@@ -10,7 +12,7 @@ public class Utilizador implements Serializable {
     private int id;
     private String nome;
     private int idade;
-    private Data dataNascimento;
+    private LocalDateTime dataNascimento;
     private String genero;
     private ArrayList<Medicamento> medicamentos;
     private String password;
@@ -20,7 +22,7 @@ public class Utilizador implements Serializable {
         this.id = count;
         this.nome = "";
         this.idade = 0;
-        this.dataNascimento = new Data();
+        this.dataNascimento = LocalDateTime.of(0, 0, 0, 0, 0);
         this.genero = "";
         this.medicamentos = new ArrayList<>();
         this.password = "";
@@ -32,12 +34,12 @@ public class Utilizador implements Serializable {
         this.nome = nome;
         this.idade = 0;
         this.password = "";
-        this.dataNascimento = new Data();
+        this.dataNascimento = LocalDateTime.of(0, 0, 0, 0, 0);
         this.genero = "";
         this.medicamentos = new ArrayList<>();
     }
 
-    public Utilizador(String nome, int idade, Data dataNascimento, String genero, String password) {
+    public Utilizador(String nome, int idade, LocalDateTime dataNascimento, String genero, String password) {
         count = count + 1;
         this.id = count;
         this.nome = nome;
@@ -76,11 +78,11 @@ public class Utilizador implements Serializable {
         this.idade = idade;
     }
 
-    public Data getDataNascimento() {
+    public LocalDateTime getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Data dataNascimento) {
+    public void setDataNascimento(LocalDateTime dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
@@ -95,55 +97,25 @@ public class Utilizador implements Serializable {
     public ArrayList<Medicamento> getMedicamentos() {
         return medicamentos;
     }
-    
+
     public void setMedicamentos(ArrayList<Medicamento> medicamentos) {
         this.medicamentos = medicamentos;
     }
 
-    public Medicamento findDroga() throws ArrayVazio {
-
-        ArrayList<Medicamento> drugs = getMedicamentos();
-        int i;
-
-        if (drugs.isEmpty()) {
-            throw new ArrayVazio("Não existem medicamentos!");
-        }
-
-        System.out.println("Qual o medicamento? (insira o codigo)");
-
-       // while (true) {
-            id = Read.Int();
-
-            for (i = 0; i < drugs.size(); i++) {
-                if (i == id)
-                   break;
-                
-            }
-            
-            if(i == id){
-             System.out.println(drugs.get(i).toString());
-             return drugs.get(i);
-            }
-            
-            else throw new ArrayVazio("Medicamento não encontrado");
-            
-
-       // }
-    }
-
-
-
-@Override
-        public String toString() {
+    @Override
+    public String toString() {
+        
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
         return "Nome: " + this.nome
                 + "\nIdade: " + this.idade
                 + "\nId:" + this.id
-                + "\nData de nascimento: " + dataNascimento.toString()
+                + "\nData de nascimento: " + dtf.format(dataNascimento)
                 + "\nGenero: " + this.genero;
     }
 
     @Override
-        public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
 
         if (obj != null && this.getClass() == obj.getClass()) {
             Utilizador u = (Utilizador) obj;
@@ -159,7 +131,7 @@ public class Utilizador implements Serializable {
     }
 
     @Override
-        public Object clone() {
+    public Object clone() {
         Utilizador copia = new Utilizador(this.nome, this.idade, this.dataNascimento, this.genero, this.password);
         copia.setMedicamentos(medicamentos);
         return copia;

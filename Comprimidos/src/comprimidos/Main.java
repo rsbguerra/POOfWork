@@ -107,7 +107,6 @@ public class Main {
         int op;
         GerirUtilizadores g = new GerirUtilizadores();
 
-        //XMLSave.saveToXML("axml.xml");
         while (true) {
             menuLogin();
             System.out.print("Introduza uma opção: ");
