@@ -6,8 +6,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Utilizador implements Serializable {
-
-    private int id;
     private String nome;
     private int idade;
     private LocalDateTime dataNascimento;
@@ -16,7 +14,6 @@ public class Utilizador implements Serializable {
     private String password;
 
     public Utilizador() {
-        this.id = 0;
         this.nome = "";
         this.idade = 0;
         this.dataNascimento = LocalDateTime.of(1, 1, 1, 0, 0);
@@ -26,7 +23,6 @@ public class Utilizador implements Serializable {
     }
 
     public Utilizador(String nome) {
-        this.id = 0;
         this.nome = nome;
         this.idade = 0;
         this.password = "";
@@ -36,21 +32,12 @@ public class Utilizador implements Serializable {
     }
 
     public Utilizador(String nome, int idade, LocalDateTime dataNascimento, String genero, String password) {
-        
-        this.id = 0;
         this.nome = nome;
         this.idade = idade;
         this.dataNascimento = dataNascimento;
         this.genero = genero;
         this.password = password;
         this.medicamentos = new ArrayList<>();
-    }
-
-    public int getId() {
-        return id;
-    }
-    public void setId(int id){
-        this.id = id;
     }
 
     public boolean testarPassword(String passwordIntroduzida) {
@@ -108,7 +95,6 @@ public class Utilizador implements Serializable {
 
         return "Nome: " + this.nome
                 + "\nIdade: " + this.idade
-                + "\nId:" + this.id
                 + "\nData de nascimento: " + dtf.format(dataNascimento)
                 + "\nGenero: " + this.genero;
     }
@@ -120,7 +106,6 @@ public class Utilizador implements Serializable {
             Utilizador u = (Utilizador) obj;
             return (this.nome.equals(u.nome)
                     && this.idade == u.idade
-                    && this.id == u.id
                     && this.dataNascimento.equals(u.dataNascimento)
                     && this.genero.equals(u.genero)
                     && this.medicamentos.equals(u.medicamentos));
