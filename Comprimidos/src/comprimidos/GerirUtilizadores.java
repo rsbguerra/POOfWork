@@ -50,22 +50,13 @@ public class GerirUtilizadores {
                 case 3: {
                     modificar(index, utilizadores);
                     break;
-                }
-
-                /*
-                    chama metodo gerirMed(int idUtilizador, ArrayList<Utilizador> utilizadores)
-                    na classe GerirMedicamentos
-                 */
+                } 
+                
                 case 4: {
                     GerirMedicamentos.gerirMed(index, utilizadores);
                     break;
-                }
-
-                /* 
-                    no fim de fazer as alteraçoes necessarias ao utilizador, 
-                    alteraçoes feitas ao arraylist utilizadores sao guardadas no 
-                    ficheiro e retorna-se para o menu MenuUtilizadores() ainda nesta classe
-                 */
+                } 
+                
                 case 5: {
                     listarTomasFuturas(index, utilizadores);
                     break;
@@ -220,7 +211,8 @@ public class GerirUtilizadores {
         ArrayList<Medicamento> medicamentos = utilizadores.get(index).getMedicamentos();
         
         for(int i = 0; i < medicamentos.size(); i++){
-            System.out.println(medicamentos.get(i).tomasToString());
+            System.out.println("Medicamento: " + medicamentos.get(i).getNome() + "\nCódigo: " + medicamentos.get(i).getId());
+            System.out.print(medicamentos.get(i).tomasToString());
         }
         
     }

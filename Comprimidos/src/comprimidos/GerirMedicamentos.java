@@ -58,7 +58,7 @@ public class GerirMedicamentos {
                     ficheiro e retorna-se para o menu MenuUtilizadores() em gerirUtilizadores
                  */
 
-                case 5: 
+                case 5:
                     listar(idUtilizador, utilizadores);
                     break;
                 case 6:
@@ -137,9 +137,9 @@ public class GerirMedicamentos {
             }
 
             for (i = 0; i < medicamentos.size(); i++) {
-                System.out.println("\nMedicamento " + (i + 1) + 
-                        ":\n\tNome: " + medicamentos.get(i).getNome() + 
-                        "\n\tCódigo: " + medicamentos.get(i).getId() + "\n");
+                System.out.println("\nMedicamento " + (i + 1)
+                        + ":\n\tNome: " + medicamentos.get(i).getNome()
+                        + "\n\tCódigo: " + medicamentos.get(i).getId() + "\n");
             }
 
             System.out.print("Qual o código do medicamento? ");
@@ -147,7 +147,8 @@ public class GerirMedicamentos {
 
             for (i = 0; i < medicamentos.size(); i++) {
                 if (id == medicamentos.get(i).getId()) {
-                    System.out.println(medicamentos.get(i).toString() + "\n");
+                    System.out.println(medicamentos.get(i).toString());
+                    System.out.println(medicamentos.get(i).tomasToString());
                     break;
                 }
 
@@ -166,13 +167,15 @@ public class GerirMedicamentos {
         ArrayList<Medicamento> medicamentos = utilizadores.get(idUtilizador).getMedicamentos();
 
         try {
-            if (medicamentos.isEmpty())
+            if (medicamentos.isEmpty()) {
                 throw new ArrayVazio("Não existem medicamentos!");
+            }
 
-            for (int i = 0; i < medicamentos.size(); i++) 
-                System.out.println("Medicamento " + (i + 1) + 
-                        ":\n\tNome: " + medicamentos.get(i).getNome() + 
-                        "\n\tCódigo: " + medicamentos.get(i).getId() + "\n");
+            for (int i = 0; i < medicamentos.size(); i++) {
+                System.out.println("Medicamento " + (i + 1)
+                        + ":\n\tNome: " + medicamentos.get(i).getNome()
+                        + "\n\tCódigo: " + medicamentos.get(i).getId() + "\n");
+            }
 
         } catch (ArrayVazio e) {
             System.out.println(e.getMessage());
@@ -218,10 +221,11 @@ public class GerirMedicamentos {
         System.out.println("<><><><><><><><><><><><><><><><><><>");
         System.out.println("  Escolha o medicamento a alterar   ");
         System.out.println("<><><><><><><><><><><><><><><><><><>");
-        
-        for (i = 0; i < medicamentos.size(); i++)
+
+        for (i = 0; i < medicamentos.size(); i++) {
             System.out.println("\nMedicamento " + (i + 1) + ": " + "\n\tNome: " + medicamentos.get(i).getNome() + "\n\tCódigo: " + medicamentos.get(i).getId());
-       
+        }
+
         System.out.println("0" + " - " + " Sair");
         System.out.println("<><><><><><><><><><><><><><><><><><>");
     }
@@ -240,6 +244,8 @@ public class GerirMedicamentos {
     public static void modificar(int idUtilizador, ArrayList<Utilizador> utilizadores) {
         int choice = 0;
 
+        // este arraylsit e apenas um arrylist auxiliar
+        // ao alterar, e necessario atualizar o arraylist do utilizador com setMedicamentos
         ArrayList<Medicamento> medicamentos = utilizadores.get(idUtilizador).getMedicamentos();
 
         try {
@@ -254,8 +260,10 @@ public class GerirMedicamentos {
                 choice = Read.Int();
 
                 switch (choice) {
+
+                    // mudar nome medicamento
                     case 1: {
-                        showMedicamentos(utilizadores.get(idUtilizador).getMedicamentos());
+                        showMedicamentos(medicamentos);
                         System.out.println("Código do medicamento: ");
                         int id = Read.Int();
 
@@ -264,18 +272,21 @@ public class GerirMedicamentos {
                         }
 
                         int i;
-                        for (i = 0; i < utilizadores.get(idUtilizador).getMedicamentos().size(); i++) {
-                            if (id == utilizadores.get(idUtilizador).getMedicamentos().get(i).getId()) {
+                        for (i = 0; i < medicamentos.size(); i++) {
+                            if (id == medicamentos.get(i).getId()) {
+
                                 System.out.print("Introduza o novo nome: ");
                                 String nome = Read.String();
-                                utilizadores.get(idUtilizador).getMedicamentos().get(i).setNome(nome);
+
+                                medicamentos.get(i).setNome(nome);
+                                utilizadores.get(idUtilizador).setMedicamentos(medicamentos);
                                 System.out.println("Medicamento modificado com sucesso.");
-                                System.out.println(utilizadores.get(idUtilizador).getMedicamentos().get(i));
+
                                 break;
                             }
                         }
 
-                        if (i >= utilizadores.get(idUtilizador).getMedicamentos().size()) {
+                        if (i >= medicamentos.size()) {
                             System.out.println("Medicamento não encontrado.");
                         }
 
@@ -283,77 +294,107 @@ public class GerirMedicamentos {
                         break;
                     }
 
-                    
-                    ////////////////////////////////////////////////////////////////////////////////
-                       // TEM DE CALCULAR AS PROXIMAS TOMAS OUTRA VEZ, DE ACORDO COM A NOVA QUANTIDADE
-                    ////////////////////////////////////////////////////////////////////////////////
+                    // modificar quantidade
                     case 2: {
-                        showMedicamentos(utilizadores.get(idUtilizador).getMedicamentos());
+                        showMedicamentos(medicamentos);
                         System.out.println("Código do medicamento: ");
+
                         int id = Read.Int();
                         int i;
-                        for (i = 0; i < utilizadores.get(idUtilizador).getMedicamentos().size(); i++) {
-                            if (id == utilizadores.get(idUtilizador).getMedicamentos().get(i).getId()) {
+
+                        for (i = 0; i < medicamentos.size(); i++) {
+                            if (id == medicamentos.get(i).getId()) {
                                 System.out.print("Introduza a nova quantidade: ");
-                                int quanti = Read.Int();
-                                utilizadores.get(idUtilizador).getMedicamentos().get(i).setQuantidade(quanti);
+
+                                int quantidade = Read.Int();
+
+                                // guarda a primeira toma
+                                LocalDateTime primeiraToma = medicamentos.get(i).getTomas_Futuras().get(0);
+
+                                // cria novo array list de tomas
+                                ArrayList<LocalDateTime> novasTomas = new ArrayList();
+
+                                // variavel auxiliar para guardar periodo de toma
+                                int periodoToma = medicamentos.get(i).getPeriodo_toma();
+
+                                // adicionar a primeira toma ao novo arraylist
+                                novasTomas.add(primeiraToma);
+
+                                // voltar a calcular tomas futuras
+                                for (int j = 0; j < quantidade-1; j++) {
+                                    novasTomas.add(novasTomas.get(j).plusHours(periodoToma));
+                                }
                                 
-                                // GUARDA A PRIMEIRA TOMA
-                                LocalDateTime prim_toma = utilizadores.get(idUtilizador).getMedicamentos().get(id).getTomas_Futuras().get(0);
-                                ArrayList<LocalDateTime> tomas_futuras_modified = null;
-                                
-                                // ADICIONA A PRIMEIRA TOMA AO NOVO ARRAYLIST DE TOMAS FUTURAS
-                                tomas_futuras_modified.add(prim_toma);
-                                
-                                // VOLTA A CALCULAR AS TOMAS FUTURAS
-                                for (i = 0; i < quanti ; i++) 
-                                 tomas_futuras_modified.add(tomas_futuras_modified.get(i).plusHours(utilizadores.get(idUtilizador).getMedicamentos().get(id).getPeriodo_toma()));
-                                
-                                // FAZ-SE O SETTOMAS_FUTURAS PARA FICAR C ESTE ARRAYLIST
-                                utilizadores.get(idUtilizador).getMedicamentos().get(id).setTomas_Futuras(tomas_futuras_modified);
-                                
+                                medicamentos.get(i).setQuantidade(quantidade);
+                                // atulizar as tomas futuras do medicamento
+                                medicamentos.get(i).setTomas_Futuras(novasTomas);
+
+                                // atualizar o medicamento com as novas tomas do utilizador
+                                utilizadores.get(idUtilizador).setMedicamentos(medicamentos);
+
+                                // guardar atualizaçoes do arraylist utilizador no ficheiro
+                                Ficheiro.escrever(utilizadores);
+
                                 System.out.println("Medicamento modificado com sucesso.");
                                 System.out.println(utilizadores.get(idUtilizador).getMedicamentos().get(i));
                                 break;
                             }
                         }
-                        if (i >= utilizadores.get(idUtilizador).getMedicamentos().size()) //  Verificar se encontrou o medicamento.
+                        //  Verificar se encontrou o medicamento
+                        if (i >= medicamentos.size()) {
                             System.out.println("Medicamento não encontrado");
-                        
+                        }
 
                         System.out.println("\nEscolha outra opção...");
                         break;
                     }
-                    
 
-                    /////////////////////////////////////////////////////////////////////////////////////
-                       // TEM DE CALCULAR AS PROXIMAS TOMAS OUTRA VEZ, DE ACORDO COM O NOVO PERIODO DE TOMA 
-                    //////////////////////////////////////////////////////////////////////////////////////
+                    // modificar novo periodo de toma
                     case 3: {
-                        showMedicamentos(utilizadores.get(idUtilizador).getMedicamentos());
+                        showMedicamentos(medicamentos);
+
                         System.out.println("Código do medicamento: ");
-                        int id = Read.Int();
+                        int codigoMedicamento = Read.Int();
                         int i;
-                        for (i = 0; i < utilizadores.get(idUtilizador).getMedicamentos().size(); i++) {
-                            if (id == utilizadores.get(idUtilizador).getMedicamentos().get(i).getId()) {
+
+                        for (i = 0; i < medicamentos.size(); i++) {
+                            if (codigoMedicamento == medicamentos.get(i).getId()) {
                                 System.out.print("Introduza o novo o período de toma: ");
-                                int pt = Read.Int();
-                                ArrayList<LocalDateTime> tomas_futuras = utilizadores.get(i).getMedicamentos().get(id).getTomas_Futuras();
-                                int quantidade = utilizadores.get(i).getMedicamentos().get(id).getQuantidade();
+                                int novoPeriodoToma = Read.Int();
+
+                                // variavel auxilar com quantidade a tomar
+                                int quantidade = medicamentos.get(i).getQuantidade();
+                                // variavel auxiliar com primeira toma
+                                LocalDateTime primeiraToma = medicamentos.get(i).getTomas_Futuras().get(0);
+
+                                // criar novo arraylist com as novas tomas
+                                ArrayList<LocalDateTime> novasTomas = new ArrayList();
+
+                                // adicinar primeira toma ao novo array list
+                                novasTomas.add(primeiraToma);
+
+                                /*  na primeira iteraçao vai adicionar o numero de horas do novo periodo à primeira toma
+                                    essa data vai ser adicionada ao novo array com as tomas
                                 
-                                for (i=1; i<tomas_futuras.size(); i++)  // apaga as tomas futuras, menos a prim_toma.
-                                    tomas_futuras.remove(i);
+                                    isto e repetido com a ultima data adicionada ao array 
+                                    (neste caso, novasTomas.get(i) foi o ultimo a ser adicionada)     
+                                 */
+                                for (int j = 0; j < quantidade-1; j++) {
+                                    novasTomas.add(novasTomas.get(j).plusHours(novoPeriodoToma));
+                                }
                                 
-                                for (i = 0; i < quantidade; i++) {      // volta a calculá-las.
-                                 tomas_futuras.add(tomas_futuras.get(i).plusHours(pt));
-                            }
-                                utilizadores.get(idUtilizador).getMedicamentos().get(i).setPeriodo_toma(pt);
+                                // atualizar arrays alterados
+                                medicamentos.get(i).setTomas_Futuras(novasTomas);
+                                utilizadores.get(idUtilizador).setMedicamentos(medicamentos);
+                                Ficheiro.escrever(utilizadores);
+                                
                                 System.out.println("Medicamento modificado com sucesso.");
                                 System.out.println(utilizadores.get(idUtilizador).getMedicamentos().get(i));
                                 break;
                             }
                         }
-                        if (i >= utilizadores.get(idUtilizador).getMedicamentos().size()) //  Verificar se encontrou o medicamento.
+                        //  Verificar se encontrou o medicamento.
+                        if (i >= medicamentos.size())
                             System.out.println("Medicamento não encontrado");
 
                         System.out.println("\nEscolha outra opção...");
