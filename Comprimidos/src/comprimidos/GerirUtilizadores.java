@@ -8,10 +8,8 @@ public class GerirUtilizadores {
 
     public static void MenuUtilizadores() {
         System.out.println(
-                "|==================================|\n"
-                + "|                                  |\n"
+                  "|==================================|\n"
                 + "|               MENU               |\n"
-                + "|                                  |\n"
                 + "|==================================|\n"
                 + "|        Selecione uma opção       |\n"
                 + "|----------------------------------|\n"
@@ -115,9 +113,7 @@ public class GerirUtilizadores {
 
     public static void menuModificar() {
         System.out.println("<><><><><><><><><><><><><><><><><><>");
-        System.out.println("                                    ");
         System.out.println("   Escolha o que pretende alterar   ");
-        System.out.println("                                    ");
         System.out.println("<><><><><><><><><><><><><><><><><><>");
         System.out.println("            1. Nome                 ");
         System.out.println("            2. Género               ");
