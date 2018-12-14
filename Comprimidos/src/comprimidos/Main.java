@@ -8,7 +8,7 @@ public class Main {
     public static void menuLogin() {
         System.out.println(
                 "|=====================|\n"
-                + "|      Bem-vindo      |\n"
+                + "|       EasyPill      |\n"
                 + "|---------------------|\n"
                 + "|   1.) Login         |\n"
                 + "|   2.) Registar      |\n"

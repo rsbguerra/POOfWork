@@ -9,9 +9,7 @@ public class GerirUtilizadores {
     public static void MenuUtilizadores() {
         System.out.println(
                 "|==================================|\n"
-                + "|                                  |\n"
                 + "|               MENU               |\n"
-                + "|                                  |\n"
                 + "|==================================|\n"
                 + "|        Selecione uma opção       |\n"
                 + "|----------------------------------|\n"
@@ -19,7 +17,8 @@ public class GerirUtilizadores {
                 + "|   2.) Remover Utilizador         |\n"
                 + "|   3.) Modificar Utilizador       |\n"
                 + "|   4.) Gerir Medicamentos         |\n"
-                + "|   5.) Voltar atrás               |\n"
+                + "|   5.) Listar Próximas Tomas      |\n"
+                + "|   6.) Voltar atrás               |\n"
                 + "|----------------------------------|\n");
     }
 
@@ -28,6 +27,7 @@ public class GerirUtilizadores {
 
         while (true) {
             MenuUtilizadores();
+            removerTomasPassadas(index, utilizadores);
             System.out.print("Introduza uma opção: ");
             choice = Read.Int();
 
@@ -67,10 +67,14 @@ public class GerirUtilizadores {
                     ficheiro e retorna-se para o menu MenuUtilizadores() ainda nesta classe
                  */
                 case 5: {
+                    listarTomasFuturas(index, utilizadores);
+                    break;
+                }
+                case 6: {
                     Ficheiro.escrever(utilizadores);
                     return;
                 }
-
+                
                 default:
                     System.out.println("Opção inválida! Introduzir nova opção\n");
                     break;
@@ -92,6 +96,8 @@ public class GerirUtilizadores {
                     tomas.remove(j);
             }
         }
+        utilizadores.get(index).setMedicamentos(medicamentos);
+        Ficheiro.escrever(utilizadores);
     }
 
     public static void remover(int index, ArrayList<Utilizador> lista) {
@@ -115,9 +121,7 @@ public class GerirUtilizadores {
 
     public static void menuModificar() {
         System.out.println("<><><><><><><><><><><><><><><><><><>");
-        System.out.println("                                    ");
         System.out.println("   Escolha o que pretende alterar   ");
-        System.out.println("                                    ");
         System.out.println("<><><><><><><><><><><><><><><><><><>");
         System.out.println("            1. Nome                 ");
         System.out.println("            2. Género               ");
@@ -210,5 +214,15 @@ public class GerirUtilizadores {
                 }
             }
         }
+    }
+    
+    public static void listarTomasFuturas(int index, ArrayList<Utilizador> utilizadores){
+        ArrayList<Medicamento> medicamentos = utilizadores.get(index).getMedicamentos();
+        
+        for(int i = 0; i < medicamentos.size(); i++){
+            System.out.println("Nome: " + medicamentos.get(i).getNome() + "\nCódigo: " + medicamentos.get(i).getId());
+            System.out.println(medicamentos.get(i).tomasToString());
+        }
+        
     }
 }
