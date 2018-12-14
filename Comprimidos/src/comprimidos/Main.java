@@ -40,7 +40,7 @@ public class Main {
                 System.out.println( (i+1) + " - " + utilizadores.get(i).getNome());
             }
 
-            System.out.println(0 + " - Sair");
+            System.out.println((utilizadores.size()+1) + " - Sair");
             System.out.print("\nIntroduza o ID do utilizador para fazer login: ");
             int id = Read.Int() - 1;
 
@@ -69,7 +69,7 @@ public class Main {
                 return;
             }
 
-            if (id == -1) {
+            if (id == (utilizadores.size())) {
                 return;
                 
             } else {

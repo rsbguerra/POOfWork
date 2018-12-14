@@ -283,6 +283,10 @@ public class GerirMedicamentos {
                         break;
                     }
 
+                    
+                    ////////////////////////////////////////////////////////////////////////////////
+                       // TEM DE CALCULAR AS PROXIMAS TOMAS OUTRA VEZ, DE ACORDO COM A NOVA QUANTIDADE
+                    ////////////////////////////////////////////////////////////////////////////////
                     case 2: {
                         showMedicamentos(utilizadores.get(idUtilizador).getMedicamentos());
                         System.out.println("Código do medicamento: ");
@@ -293,20 +297,38 @@ public class GerirMedicamentos {
                                 System.out.print("Introduza a nova quantidade: ");
                                 int quanti = Read.Int();
                                 utilizadores.get(idUtilizador).getMedicamentos().get(i).setQuantidade(quanti);
+                                
+                                // GUARDA A PRIMEIRA TOMA
+                                LocalDateTime prim_toma = utilizadores.get(idUtilizador).getMedicamentos().get(id).getTomas_Futuras().get(0);
+                                ArrayList<LocalDateTime> tomas_futuras_modified = null;
+                                
+                                // ADICIONA A PRIMEIRA TOMA AO NOVO ARRAYLIST DE TOMAS FUTURAS
+                                tomas_futuras_modified.add(prim_toma);
+                                
+                                // VOLTA A CALCULAR AS TOMAS FUTURAS
+                                for (i = 0; i < quanti ; i++) 
+                                 tomas_futuras_modified.add(tomas_futuras_modified.get(i).plusHours(utilizadores.get(idUtilizador).getMedicamentos().get(id).getPeriodo_toma()));
+                                
+                                // FAZ-SE O SETTOMAS_FUTURAS PARA FICAR C ESTE ARRAYLIST
+                                utilizadores.get(idUtilizador).getMedicamentos().get(id).setTomas_Futuras(tomas_futuras_modified);
+                                
                                 System.out.println("Medicamento modificado com sucesso.");
                                 System.out.println(utilizadores.get(idUtilizador).getMedicamentos().get(i));
                                 break;
                             }
                         }
                         if (i >= utilizadores.get(idUtilizador).getMedicamentos().size()) //  Verificar se encontrou o medicamento.
-                        {
                             System.out.println("Medicamento não encontrado");
-                        }
+                        
 
                         System.out.println("\nEscolha outra opção...");
                         break;
                     }
+                    
 
+                    /////////////////////////////////////////////////////////////////////////////////////
+                       // TEM DE CALCULAR AS PROXIMAS TOMAS OUTRA VEZ, DE ACORDO COM O NOVO PERIODO DE TOMA 
+                    //////////////////////////////////////////////////////////////////////////////////////
                     case 3: {
                         showMedicamentos(utilizadores.get(idUtilizador).getMedicamentos());
                         System.out.println("Código do medicamento: ");
@@ -316,6 +338,15 @@ public class GerirMedicamentos {
                             if (id == utilizadores.get(idUtilizador).getMedicamentos().get(i).getId()) {
                                 System.out.print("Introduza o novo o período de toma: ");
                                 int pt = Read.Int();
+                                ArrayList<LocalDateTime> tomas_futuras = utilizadores.get(i).getMedicamentos().get(id).getTomas_Futuras();
+                                int quantidade = utilizadores.get(i).getMedicamentos().get(id).getQuantidade();
+                                
+                                for (i=1; i<tomas_futuras.size(); i++)  // apaga as tomas futuras, menos a prim_toma.
+                                    tomas_futuras.remove(i);
+                                
+                                for (i = 0; i < quantidade; i++) {      // volta a calculá-las.
+                                 tomas_futuras.add(tomas_futuras.get(i).plusHours(pt));
+                            }
                                 utilizadores.get(idUtilizador).getMedicamentos().get(i).setPeriodo_toma(pt);
                                 System.out.println("Medicamento modificado com sucesso.");
                                 System.out.println(utilizadores.get(idUtilizador).getMedicamentos().get(i));
