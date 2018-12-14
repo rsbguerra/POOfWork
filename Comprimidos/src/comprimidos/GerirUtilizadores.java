@@ -220,7 +220,6 @@ public class GerirUtilizadores {
         ArrayList<Medicamento> medicamentos = utilizadores.get(index).getMedicamentos();
         
         for(int i = 0; i < medicamentos.size(); i++){
-            System.out.println("Nome: " + medicamentos.get(i).getNome() + "\nCódigo: " + medicamentos.get(i).getId());
             System.out.println(medicamentos.get(i).tomasToString());
         }
         

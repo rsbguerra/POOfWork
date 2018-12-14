@@ -111,7 +111,7 @@ public class Medicamento implements Serializable {
         
         String s = "";
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        s = s + "\nNome: " + this.nome + "\n";
+        s = s + "\nNome: " + this.nome + "\nCódigo: " + this.id + "\n";
         
         for(int i = 0; i < this.tomas_futuras.size(); i++){
             s = s + (i+1) + "ª - " + formato.format(this.tomas_futuras.get(i)) + "\n";
