@@ -58,15 +58,9 @@ public class GerirMedicamentos {
                     ficheiro e retorna-se para o menu MenuUtilizadores() em gerirUtilizadores
                  */
 
-                case 5: {
-                    ArrayList<Medicamento> meds = utilizadores.get(idUtilizador).getMedicamentos();
-
-                    for (int i = 0; i < meds.size(); i++) {
-                        System.out.println("Medicamento " + (i + 1) + ":\n\tNome: " + meds.get(i).getNome() + "\n\tCódigo: " + meds.get(i).getId() + "\n");
-                    }
+                case 5: 
+                    listar(idUtilizador, utilizadores);
                     break;
-                }
-
                 case 6:
                     Ficheiro.escrever(utilizadores);
                     return;
@@ -99,7 +93,7 @@ public class GerirMedicamentos {
 
         System.out.print("Introduza a quantidade a tomar: ");
         int quantidade = Read.Int();
-        
+
         System.out.print("Introduza a data da primeira toma no formato hh:mm, dd/mm/aa.\n");
         System.out.print("Hora: ");
         int horas = Read.Int();
@@ -117,18 +111,20 @@ public class GerirMedicamentos {
         int ano = Read.Int();
 
         LocalDateTime prim_toma = LocalDateTime.of(ano, mes, dia, horas, min);
-        
+
         System.out.print("Introduza o período de toma em horas: ");
         int periodoToma = Read.Int();
-        
+
         ArrayList<LocalDateTime> tomas_futuras = new ArrayList();
         tomas_futuras.add(prim_toma);
-        
-        for(i = 0; i < quantidade; i++){
+
+        for (i = 0; i < quantidade; i++) {
             tomas_futuras.add(tomas_futuras.get(i).plusHours(periodoToma));
         }
-        
+
         medicamentos.add(new Medicamento(codigo, nome, descricao, periodoToma, quantidade, tomas_futuras));
+        utilizadores.get(idUtilizador).setMedicamentos(medicamentos);
+        Ficheiro.escrever(utilizadores);
     }
 
     public static void consultar(int idUtilizador, ArrayList<Utilizador> utilizadores) {
@@ -141,8 +137,9 @@ public class GerirMedicamentos {
             }
 
             for (i = 0; i < medicamentos.size(); i++) {
-                System.out.println("\nMedicamento " + (i + 1) + ":\n\tNome: " + medicamentos.get(i).getNome()
-                        + "\n\tCódigo: " + medicamentos.get(i).getId() + "\n");
+                System.out.println("\nMedicamento " + (i + 1) + 
+                        ":\n\tNome: " + medicamentos.get(i).getNome() + 
+                        "\n\tCódigo: " + medicamentos.get(i).getId() + "\n");
             }
 
             System.out.print("Qual o código do medicamento? ");
@@ -158,6 +155,24 @@ public class GerirMedicamentos {
                     System.out.println("Medicamento não encontrado.");
                 }
             }
+
+        } catch (ArrayVazio e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void listar(int idUtilizador, ArrayList<Utilizador> utilizadores) {
+
+        ArrayList<Medicamento> medicamentos = utilizadores.get(idUtilizador).getMedicamentos();
+
+        try {
+            if (medicamentos.isEmpty())
+                throw new ArrayVazio("Não existem medicamentos!");
+
+            for (int i = 0; i < medicamentos.size(); i++) 
+                System.out.println("Medicamento " + (i + 1) + 
+                        ":\n\tNome: " + medicamentos.get(i).getNome() + 
+                        "\n\tCódigo: " + medicamentos.get(i).getId() + "\n");
 
         } catch (ArrayVazio e) {
             System.out.println(e.getMessage());
@@ -187,14 +202,12 @@ public class GerirMedicamentos {
                 if (id == medicamentos.get(i).getId()) {
                     medicamentos.remove(i);
                     System.out.println("Medicamento removido.");
-                    break;
+                    utilizadores.get(idUtilizador).setMedicamentos(medicamentos);
+                    Ficheiro.escrever(utilizadores);
+                    return;
                 }
             }
-
-            if (i >= medicamentos.size()) {
-                System.out.println("Medicamento não encontrado.");
-            }
-
+            System.out.println("Medicamento não encontrado.");
         } catch (ArrayVazio e) {
             System.out.println(e.getMessage());
         }
@@ -205,9 +218,10 @@ public class GerirMedicamentos {
         System.out.println("<><><><><><><><><><><><><><><><><><>");
         System.out.println("  Escolha o medicamento a alterar   ");
         System.out.println("<><><><><><><><><><><><><><><><><><>");
-        for (i = 0; i < medicamentos.size(); i++) {
+        
+        for (i = 0; i < medicamentos.size(); i++)
             System.out.println("\nMedicamento " + (i + 1) + ": " + "\n\tNome: " + medicamentos.get(i).getNome() + "\n\tCódigo: " + medicamentos.get(i).getId());
-        }
+       
         System.out.println("0" + " - " + " Sair");
         System.out.println("<><><><><><><><><><><><><><><><><><>");
     }
@@ -267,7 +281,6 @@ public class GerirMedicamentos {
 
                         System.out.println("\nEscolha outra opção...");
                         break;
-
                     }
 
                     case 2: {
@@ -310,15 +323,14 @@ public class GerirMedicamentos {
                             }
                         }
                         if (i >= utilizadores.get(idUtilizador).getMedicamentos().size()) //  Verificar se encontrou o medicamento.
-                        {
                             System.out.println("Medicamento não encontrado");
-                        }
 
                         System.out.println("\nEscolha outra opção...");
                         break;
                     }
 
                     case 4:
+                        Ficheiro.escrever(utilizadores);
                         return;
 
                     default: {

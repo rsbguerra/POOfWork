@@ -14,7 +14,7 @@ public class Admin extends Utilizador {
         if (lista.size() > 0) {
 
             Admin_listarNome(lista);
-            System.out.print("Qual o utilizador que quer remover? ");
+            System.out.print("\nQual o utilizador que quer remover? ");
             int id = Read.Int();
             int i;
 
@@ -37,6 +37,7 @@ public class Admin extends Utilizador {
                 switch (op) {
                     case 'y':
                         lista.remove(i);
+                        Ficheiro.escrever(lista);
                         return;
                     case 'n':
                         return;

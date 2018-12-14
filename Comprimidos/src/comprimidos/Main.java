@@ -40,7 +40,7 @@ public class Main {
                         + utilizadores.get(i).getNome());
             }
 
-            System.out.println((i + 1) + " - Sair");
+            System.out.println(0 + " - Sair");
             System.out.print("\nIntroduza o ID do utilizador para fazer login: ");
             int u = Read.Int();
 
@@ -51,27 +51,31 @@ public class Main {
             }
 
             String pass;
+            
             if (i < utilizadores.size()) {
+                
                 int tentativas;
+                
                 for (tentativas = 0; tentativas < 3; tentativas++) {
                     System.out.print("Introduza password do utilizador " + utilizadores.get(i).getNome() + ": ");
                     pass = Read.String();
+                    
                     if (utilizadores.get(i).testarPassword(pass)) {
                         System.out.println("\nBem-vindo de volta, " + utilizadores.get(i).getNome() + "!\n");
                         GerirUtilizadores.gerirUtilizadores(i, utilizadores);   // menuUtilizadores
                         break;
-                    } else {
+                    } 
+                    else
                         System.out.println("Password incorreta. Tem mais " + (2 - tentativas) + " tentativa(s).");
-                    }
 
                 }
-                if (tentativas >= 3) {
+                if (tentativas >= 3)
                     System.out.println("Excedeu limite de tentativas!\nAté à próxima!");
-                }
+                
                 return;
             }
 
-            if (u == (utilizadores.size() + 1)) {
+            if (u == 0) {
                 return;
             } else {
                 System.out.println("Esse utilizador não existe.\n");
