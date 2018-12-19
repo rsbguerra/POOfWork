@@ -1,10 +1,5 @@
 package comprimidos;
 
-/* 1º PRIMEIRA TOMA
-   2º QUANTAS TOMAS (X)
-   3º GUARDAR 1ª TOMA E FAZER LOGO X*PERIODO_DE_TOMA P/ GUARDAR TODO O PREVISTO HISTÓRICO DE TOMA
-   4º VERIFICAR TOMAS JÁ PASSADAS CASO A PESSOA NÃO ESTEJA PRESENTE NA HORA DOS ALERTAS
- */
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -17,7 +12,7 @@ public class GerirMedicamentos {
                 + "|==================================|\n"
                 + "|        Selecione uma opção       |\n"
                 + "|----------------------------------|\n"
-                + "|   1.) Adicionar Medicamento      |\n" // perguntar qual sera o tipo de medicamento
+                + "|   1.) Adicionar Medicamento      |\n"
                 + "|   2.) Remover Medicamento        |\n"
                 + "|   3.) Modificar Medicamento      |\n"
                 + "|   4.) Consultar                  |\n"
@@ -114,11 +109,11 @@ public class GerirMedicamentos {
 
         System.out.print("Introduza o período de toma em horas: ");
         int periodoToma = Read.Int();
-
+        
         ArrayList<LocalDateTime> tomas_futuras = new ArrayList();
         tomas_futuras.add(prim_toma);
 
-        for (i = 0; i < quantidade; i++) {
+        for (i = 0; i < quantidade-1; i++) {
             tomas_futuras.add(tomas_futuras.get(i).plusHours(periodoToma));
         }
 
@@ -278,9 +273,15 @@ public class GerirMedicamentos {
                                 System.out.print("Introduza o novo nome: ");
                                 String nome = Read.String();
 
-                                medicamentos.get(i).setNome(nome);
+                               medicamentos.get(i).setNome(nome);
+
+                                // atualizar o medicamento com as novas tomas do utilizador
                                 utilizadores.get(idUtilizador).setMedicamentos(medicamentos);
+                                // guardar atualizaçoes do arraylist utilizador no ficheiro
+                                Ficheiro.escrever(utilizadores);
+
                                 System.out.println("Medicamento modificado com sucesso.");
+                                System.out.println(medicamentos.get(i));
 
                                 break;
                             }
@@ -336,7 +337,7 @@ public class GerirMedicamentos {
                                 Ficheiro.escrever(utilizadores);
 
                                 System.out.println("Medicamento modificado com sucesso.");
-                                System.out.println(utilizadores.get(idUtilizador).getMedicamentos().get(i));
+                                System.out.println(medicamentos.get(i));
                                 break;
                             }
                         }
@@ -384,6 +385,7 @@ public class GerirMedicamentos {
                                 }
                                 
                                 // atualizar arrays alterados
+                                medicamentos.get(i).setPeriodo_toma(novoPeriodoToma);
                                 medicamentos.get(i).setTomas_Futuras(novasTomas);
                                 utilizadores.get(idUtilizador).setMedicamentos(medicamentos);
                                 Ficheiro.escrever(utilizadores);
